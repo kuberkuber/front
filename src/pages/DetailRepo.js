@@ -4,9 +4,9 @@ import { Button } from '@material-ui/core';
 
 const DetailRepo = () => (
   <div>
-    <h2>
+    <h1>
 		DetailRepo
-    </h2>
+    </h1>
 	{/* <Button variant="outlined" color="primary">
 
 		Repository 정보
