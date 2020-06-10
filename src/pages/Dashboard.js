@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
 import { Link, Switch, Route } from 'react-router-dom';
 import {
-	Button,
-	Table,
-	TableBody,
-	TableCell,
-	TableContainer,
-	TableHead,
-	TableRow
+	Button
 } from '@material-ui/core';
-import { AddRepo } from '.';
+import { AddRepo, DetailRepo } from '.';
+import RepoTable from 'components/RepoTable';
 
 const button = {
 	textDecoration: 'none',
@@ -17,24 +12,28 @@ const button = {
 };
 
 class Dashboard extends Component{
+
 	render() {
-		const { match } = this.props;
+		// const { match } = this.props;
 		return(
 		<div>
 			<Switch>
 				<Route path = {`/add`}>
 					<AddRepo/>
 				</Route>
+				<Route path = {`/jjungeun/echo-server`}>
+					<DetailRepo/>
+				</Route>
 				<Route exact path = {`/`}>
 					<h1 style={{'text-align' : 'center'}}>
 						Dashboard
 					</h1>
-					<Link to={`${match.url}add`} style={button}>
+					<Link to={`/add`} style={button}>
 						<Button variant="outlined" color="primary">
 							Register new repository
 						</Button>
 					</Link>
-
+					<RepoTable />
 				</Route>
 			</Switch>
 		</div>

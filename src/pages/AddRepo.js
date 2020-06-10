@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button, Typography, TextField } from '@material-ui/core';
 
 const title = {
@@ -18,9 +18,6 @@ class AddRepo extends Component {
 			<div style={title}>
 				<Typography variant="h4" gutterBottom>
 					Register new repository
-				</Typography>
-				<Typography variant="body2" gutterBottom>
-
 				</Typography>
 			</div>
 			<div style={content}>
@@ -69,7 +66,6 @@ class AddRepo extends Component {
 				/>
 			</div>
 			<div style={content}>
-
 				<Link to={`/`} style={{ textDecoration: 'none' }}>
 					<Button variant="outlined" color="primary">
 						Register and Deploy

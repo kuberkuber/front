@@ -1,6 +1,6 @@
 import React, { Component }  from 'react';
 import './App.css';
-import { Route, Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { Dashboard } from 'pages';
 import Menu from 'components/Menu';
 import { Grid } from '@material-ui/core';
