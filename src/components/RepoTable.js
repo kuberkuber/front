@@ -16,7 +16,7 @@ function createData(name, status, time, ) {
   }
 
 const rows = [
-	createData('echo-server', 'Available', 6.0),
+	createData('echo-server', 'Available', 'Jun. 09 2020, 16:14:34 +09:00'),
 ];
 
 const tableStyle = {
