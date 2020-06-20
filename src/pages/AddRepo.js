@@ -4,6 +4,8 @@ import { Button, Typography, TextField } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import YAML from 'yamljs';
+import MyDropzone from 'components/MyDropZone';
+
 const title = {
     "marginTop": "60px",
     "marginBottom": "50px"
@@ -17,23 +19,36 @@ const AddRepo = (props) => {
     const [repoName, setRepoName] = useState('');
     const [dockerImage, setDockerImage] = useState('');
     const [port, setPort] = useState('');
-
+    const kuberData = useSelector(state => state.kuberData);
+    const data = kuberData.repos;
     let swaggerInfo = null;
 
     const dispatch = useDispatch();
 
+    const validateForm  = (pname,pport)=>{
+        //이름 대문자 체크
+        for(const c of pname){
+            if(c===c.toUpperCase()) return false;
+        }
+        if(isNaN(pport)) return false;
+        //중복체크
+        for(const e in data){
+            if(e.name === pname) return false;
+        }
+    }
+    
     const asyncFunc = (formData,res) => {
         console.log('서버응답후',res);
         dispatch({
             type: 'ACTIVEDATA',
-            repoName: formData.repo_name
+            name: formData.repo_name
         });
     }
 
     const goMainPage = (formData) => {
         dispatch({
             type: 'INSERTDATA',
-            data: { repoName: formData.repo_name, status: false, time: new Date().toString() }
+            data: { name: formData.repo_name, create_time: new Date().toString(),status: "False" }
         });
         props.history.push({
             pathname: '/',
@@ -53,20 +68,26 @@ const AddRepo = (props) => {
     }
     const onSubmitForm = (e) => {
         e.preventDefault();
+        // if(!validateForm(repoName,port)){
+        //     alert("Wrong");
+        //     return ;
+        // }
         const formData = {
             namespace : "test",
             repo_name : repoName,
-            image_name: "vad1mo/hello-word-rest",
-            port_num : Number(port),
+            image_name: "vad1mo/hello-world-rest",
+            port_num : 5050,
             api_doc : swaggerInfo===null ? null : swaggerInfo.paths
         };
+        console.log(swaggerInfo);
         request(formData);
         goMainPage(formData);
     };
     const swaggerRead = (e) => {
+        
         let file = e.target.files[0];
         let fileReader = new FileReader();
-
+        console.log(file);
         if (file !== undefined) {
             fileReader.onload = () => {
                 swaggerInfo = YAML.parse(fileReader.result);
@@ -75,6 +96,18 @@ const AddRepo = (props) => {
             fileReader.readAsText(file);
         }
     }
+    // const swaggerRead = (e) => {
+    //     let file = e.target.files[0];
+    //     let fileReader = new FileReader();
+
+    //     if (file !== undefined) {
+    //         fileReader.onload = () => {
+    //             swaggerInfo = YAML.parse(fileReader.result);
+    //             console.log(swaggerInfo);
+    //         };
+    //         fileReader.readAsText(file);
+    //     }
+    // }
     return (
         <form onSubmit={onSubmitForm}>
 
@@ -147,9 +180,10 @@ const AddRepo = (props) => {
                         }}
                     />
                 </div>
-                <div>
+                {/* <div>
                     <input type="file" onChange={swaggerRead} />
-                </div>
+                </div> */}
+                <MyDropzone swaggerInfo={swaggerInfo} swaggerRead={swaggerRead}></MyDropzone>
                 <br/>
                 <div style={content}>
                     {/* <Link to={`/`} style={{ textDecoration: 'none' }}> */}

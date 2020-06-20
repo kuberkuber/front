@@ -6,17 +6,17 @@ import {
 import HeaderTable from './HeaderTable';
 
 const titleStyle = {
-	"margin-right": "10px"
+	"marginRight": "10px"
 }
 
 const gridStyle = {
 	// "margin-top": "30px",
-	"margin-bottom": "10px",
+	"marginBottom": "10px",
 };
 
 const bodyStyle = {
-	"margin-top": "10px",
-	"margin-bottom": "20px",
+	"marginTop": "10px",
+	"marginBottom": "20px",
 	"background-color": "black",
 	"color": "white",
 };

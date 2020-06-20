@@ -17,8 +17,11 @@ const tableStyle = {
 };
 
 const RepoTable = ({ data }) => {
-
+    console.log(data);
     const [rows, setRow] = useState(data);
+    useEffect(() => {
+        setRow(data);
+    },[data]);    
     return (
         <div key={data} style={tableStyle}>
             <TableContainer component={Paper}>
@@ -33,24 +36,24 @@ const RepoTable = ({ data }) => {
                     </TableHead>
                     <TableBody>
                         {rows.map((row) => (
-                            <TableRow key={row.repoName}>
+                            <TableRow key={row.name}>
                                 <TableCell component="th" scope="row">
-                                    {row.status == true ?
+                                    {row.status == "True" ?
                                         <Link to={{ pathname: `/repo/`, state: { 'foo': 'bar'} }} style={{ textDecoration: 'none' }}>
-                                            {row.repoName}
+                                            {row.name}
                                         </Link> 
                                         :
                                         <Link style={{ textDecoration: 'none' }}>
-                                            {row.repoName}
+                                            {row.name}
                                         </Link> 
                                     }
                                 </TableCell>
                                 <TableCell align="left">
-                                    {row.status == true ? 'ACTIVE' : 'WAIT'}
+                                    {row.status == "True" ? 'ACTIVE' : 'WAIT'}
                                 </TableCell>
-                                <TableCell align="left">{row.time}</TableCell>
+                                <TableCell align="left">{row.create_time}</TableCell>
                                 <TableCell align="left">
-                                    {row.status == true ? <SettingsIcon /> : <CircularProgress />}
+                                    {row.status == "True" ? <SettingsIcon /> : <CircularProgress />}
                                 </TableCell>
                             </TableRow>
                         ))}

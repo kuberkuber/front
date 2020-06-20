@@ -5,7 +5,7 @@ import {
 } from '@material-ui/core';
 import { AddRepo, DetailRepo } from '.';
 import RepoTable from 'components/RepoTable';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import axios from 'axios';
 
 const button = {
@@ -14,18 +14,22 @@ const button = {
 };
 
 const Dashboard = () => {
-
+    const dispatch = useDispatch();
     const kuberData = useSelector(state => state.kuberData);
     const data = kuberData.repos;
-
     const request = async () => {
         try {
             const response = await axios.get("http://ef1beadeda41.ngrok.io/", {
                 params: {
                   namespace: "test"
                 }
-              });
-            return console.log(response.data);
+            });
+            await dispatch({
+                type: 'UPDATEDATA',
+                data : response.data
+            });
+            console.log(response.data);
+            return response.data;
         }
         catch (error) {
             console.log(error);
@@ -34,7 +38,8 @@ const Dashboard = () => {
     
     useEffect(() => {
         request();
-    });
+    },[]);
+
     return (
         <div>
             <Switch>
@@ -45,7 +50,7 @@ const Dashboard = () => {
                     <DetailRepo />
                 </Route>
                 <Route exact path={`/`}>
-                    <h1 style={{ 'text-align': 'center' }}>
+                    <h1 style={{ 'textAlign': 'center' }}>
                         Dashboard
                     </h1>
                     <Link to={`/add`} style={button}>
@@ -54,6 +59,7 @@ const Dashboard = () => {
 						</Button>
                     </Link>
                     <RepoTable data={data} />
+                    <br/>
                 </Route>
             </Switch>
         </div>
