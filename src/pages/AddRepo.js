@@ -25,18 +25,39 @@ const AddRepo = (props) => {
 
     const dispatch = useDispatch();
 
-    const validateForm  = (pname,pport)=>{
-        //이름 대문자 체크
-        for(const c of pname){
-            if(c===c.toUpperCase()) return false;
+    const isLowerAlpha = (c) => {
+        if (c >= 'a' && c <= 'z')
+            return true;
+        return false;
+    }
+
+    const isError = (pname,pport) => {
+        const repoError = "repository name must consist of lower case alphanumeric characters or '-', and must start and end with an alphanumeric character";
+        const uniqueError = "repository name should be unique"
+        const portError = "port number should be number"
+        //repo name 체크
+        const len = pname.length;
+        if ( len === 0 ||
+            (isNaN(pname[0]) && !isLowerAlpha(pname[0])) ||
+            (isNaN(pname[len - 1]) && !isLowerAlpha(pname[len - 1])))
+            return repoError;
+        else {
+            for(const c of pname){
+                if(!isLowerAlpha(c) && isNaN(c) && c !== '-' )
+                    return repoError;
+            }
         }
-        if(isNaN(pport)) return false;
         //중복체크
         for(const e in data){
-            if(e.name === pname) return false;
+            if(e.name === pname)
+                return uniqueError;
         }
+        //port
+        if(isNaN(pport))
+            return portError;
+        return false;
     }
-    
+
     const asyncFunc = (formData,res) => {
         console.log('서버응답후',res);
         dispatch({
@@ -68,10 +89,11 @@ const AddRepo = (props) => {
     }
     const onSubmitForm = (e) => {
         e.preventDefault();
-        // if(!validateForm(repoName,port)){
-        //     alert("Wrong");
-        //     return ;
-        // }
+        const msg = isError(repoName,port)
+        if( msg !== false){
+            alert(msg);
+            return ;
+        }
         const formData = {
             namespace : "test",
             repo_name : repoName,
@@ -84,7 +106,7 @@ const AddRepo = (props) => {
         goMainPage(formData);
     };
     const swaggerRead = (e) => {
-        
+
         let file = e.target.files[0];
         let fileReader = new FileReader();
         console.log(file);
@@ -124,7 +146,7 @@ const AddRepo = (props) => {
                     <TextField
                         id="standard-full-width"
                         label="Repository name should be unique"
-                        placeholder="MyfirstRepo"
+                        placeholder="my-first-repo"
                         value={repoName}
                         onChange={
                             (e) => {

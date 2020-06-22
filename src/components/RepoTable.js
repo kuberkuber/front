@@ -21,7 +21,7 @@ const RepoTable = ({ data }) => {
     const [rows, setRow] = useState(data);
     useEffect(() => {
         setRow(data);
-    },[data]);    
+    },[data]);
     return (
         <div key={data} style={tableStyle}>
             <TableContainer component={Paper}>
@@ -38,22 +38,22 @@ const RepoTable = ({ data }) => {
                         {rows.map((row) => (
                             <TableRow key={row.name}>
                                 <TableCell component="th" scope="row">
-                                    {row.status == "True" ?
+                                    {row.status === "True" ?
                                         <Link to={{ pathname: `/repo/`, state: { 'foo': 'bar'} }} style={{ textDecoration: 'none' }}>
                                             {row.name}
-                                        </Link> 
+                                        </Link>
                                         :
                                         <Link style={{ textDecoration: 'none' }}>
                                             {row.name}
-                                        </Link> 
+                                        </Link>
                                     }
                                 </TableCell>
                                 <TableCell align="left">
-                                    {row.status == "True" ? 'ACTIVE' : 'WAIT'}
+                                    {row.status === "True" ? 'Available' : 'Error(Pull docker image)'}
                                 </TableCell>
                                 <TableCell align="left">{row.create_time}</TableCell>
                                 <TableCell align="left">
-                                    {row.status == "True" ? <SettingsIcon /> : <CircularProgress />}
+                                    {row.status === "True" ? <SettingsIcon /> : <CircularProgress />}
                                 </TableCell>
                             </TableRow>
                         ))}
