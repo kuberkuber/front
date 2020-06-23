@@ -19,7 +19,7 @@ const Dashboard = () => {
     const data = kuberData.repos;
     const request = async () => {
         try {
-            const response = await axios.get("http://ef1beadeda41.ngrok.io/", {
+            const response = await axios.get("http://127.0.0.1:5000/", {
                 params: {
                   namespace: "test"
                 }
@@ -35,7 +35,7 @@ const Dashboard = () => {
             console.log(error);
         }
     };
-    
+
     useEffect(() => {
         request();
     },[]);

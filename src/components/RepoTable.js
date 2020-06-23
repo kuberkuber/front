@@ -19,6 +19,7 @@ const tableStyle = {
 const RepoTable = ({ data }) => {
     console.log(data);
     const [rows, setRow] = useState(data);
+    console.log(data)
     useEffect(() => {
         setRow(data);
     },[data]);
@@ -38,18 +39,19 @@ const RepoTable = ({ data }) => {
                         {rows.map((row) => (
                             <TableRow key={row.name}>
                                 <TableCell component="th" scope="row">
-                                    {row.status === "True" ?
+                                    {/* {row.status === "True" ? */}
                                         <Link to={{ pathname: `/repo/`, state: { 'foo': 'bar'} }} style={{ textDecoration: 'none' }}>
                                             {row.name}
                                         </Link>
-                                        :
+                                        {/* :
                                         <Link style={{ textDecoration: 'none' }}>
                                             {row.name}
                                         </Link>
-                                    }
+                                    } */}
                                 </TableCell>
                                 <TableCell align="left">
-                                    {row.status === "True" ? 'Available' : 'Error(Pull docker image)'}
+                                    {row.status === "True" ? 'Available' : 'Deploying'}
+                                    {/* {row.status === "True" ? 'Available' : 'Error(Pull docker image)'} */}
                                 </TableCell>
                                 <TableCell align="left">{row.create_time}</TableCell>
                                 <TableCell align="left">
