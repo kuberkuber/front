@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react'
 import { useDropzone } from 'react-dropzone'
-import YAML from 'yamljs';
 
 const whitebox = {
     "padding": "16px",
@@ -29,8 +28,10 @@ const box = {
 const activeStyle = {
     borderColor: '#ff1744'
 }
-const MyDropzone = ({ swaggerInfo,swaggerRead }) => {
-
+const MyDropzone = ({ swaggerRead }) => {
+    const onDrop = (acceptedFiles) => {
+        swaggerRead({target: {files: acceptedFiles}});
+    }
     const {
         open,
         getRootProps,
@@ -38,7 +39,8 @@ const MyDropzone = ({ swaggerInfo,swaggerRead }) => {
         acceptedFiles,
         isDragActive
     } = useDropzone({
-        noClick: true
+        noClick: true,
+        onDrop
     });
     const boxstyle = useMemo(() => ({
         ...box,
@@ -46,15 +48,15 @@ const MyDropzone = ({ swaggerInfo,swaggerRead }) => {
     }), [
         isDragActive
     ]);
-    // const files = acceptedFiles.map(file => (
-    //     <li key={file.path}>
-    //         {file.path} - {file.size} bytes
-    //     </li>
-    // ));
+    const fileSize = acceptedFiles.map(file => (
+        <li key={file.path}>
+            {file.path} - {file.size} bytes
+        </li>
+    ));
 
     return (
         <section className="container" style={whitebox}>
-            <div style={boxstyle} {...getRootProps({ className: 'dropzone' })}>
+            <div style={boxstyle} {...getRootProps()}>
                 <input {...getInputProps()} onChange={swaggerRead} />
                 <p>Drag 'n' drop some files here, or click to select files</p>
                 <button type="button" onClick={open}>
@@ -62,7 +64,7 @@ const MyDropzone = ({ swaggerInfo,swaggerRead }) => {
         </button>
             </div>
             <aside>
-                {/* <ul>{file!==null ? file.path + file.size : ''}</ul> */}
+                <ul>{fileSize}</ul>
             </aside>
         </section>
     );

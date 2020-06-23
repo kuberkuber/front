@@ -10,6 +10,8 @@ import {
 } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import ErrorIcon from '@material-ui/icons/Error';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import { Link,withRouter } from 'react-router-dom';
 
 const tableStyle = {
@@ -50,12 +52,21 @@ const RepoTable = ({ data }) => {
                                     } */}
                                 </TableCell>
                                 <TableCell align="left">
-                                    {row.status === "True" ? 'Available' : 'Deploying'}
-                                    {/* {row.status === "True" ? 'Available' : 'Error(Pull docker image)'} */}
+                                    {/* {row.status === "True" ? 'Available' : 'Deploying'} */}
+                                {row.status === "True" ?
+                                    'Available' :
+                                    row.status === "False" ?
+                                    <div>
+                                        <ErrorOutlineIcon fontSize="small" color="secondary"/>
+                                        Error(Pull docker image)
+                                    </div>:
+                                    'Deploying...'
+                                }
+                                {/* {row.status === "True" ? 'Available' : <ErrorIcon/>'Error(Pull docker image)'} */}
                                 </TableCell>
                                 <TableCell align="left">{row.create_time}</TableCell>
                                 <TableCell align="left">
-                                    {row.status === "True" ? <SettingsIcon /> : <CircularProgress />}
+                                    <SettingsIcon />
                                 </TableCell>
                             </TableRow>
                         ))}

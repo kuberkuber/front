@@ -77,7 +77,8 @@ const AddRepo = (props) => {
     }
     const request = async (formData) => {
         try {
-            const response = await axios.post("http://ef1beadeda41.ngrok.io/deploy",formData);
+            const response = await axios.post("http://127.0.0.1:5000/deploy",formData);
+            // const response = await axios.post("http://ef1beadeda41.ngrok.io/deploy",formData);
             await asyncFunc(formData,response);
             swaggerInfo = null;
             // const response = await axios.post("",formData);
@@ -97,8 +98,8 @@ const AddRepo = (props) => {
         const formData = {
             namespace : "test",
             repo_name : repoName,
-            image_name: "vad1mo/hello-world-rest",
-            port_num : 5050,
+            image_name: dockerImage,
+            port_num : port,
             api_doc : swaggerInfo===null ? null : swaggerInfo.paths
         };
         console.log(swaggerInfo);
@@ -118,18 +119,7 @@ const AddRepo = (props) => {
             fileReader.readAsText(file);
         }
     }
-    // const swaggerRead = (e) => {
-    //     let file = e.target.files[0];
-    //     let fileReader = new FileReader();
 
-    //     if (file !== undefined) {
-    //         fileReader.onload = () => {
-    //             swaggerInfo = YAML.parse(fileReader.result);
-    //             console.log(swaggerInfo);
-    //         };
-    //         fileReader.readAsText(file);
-    //     }
-    // }
     return (
         <form onSubmit={onSubmitForm}>
 
@@ -205,7 +195,7 @@ const AddRepo = (props) => {
                 {/* <div>
                     <input type="file" onChange={swaggerRead} />
                 </div> */}
-                <MyDropzone swaggerInfo={swaggerInfo} swaggerRead={swaggerRead}></MyDropzone>
+                <MyDropzone swaggerRead={swaggerRead}></MyDropzone>
                 <br/>
                 <div style={content}>
                     {/* <Link to={`/`} style={{ textDecoration: 'none' }}> */}
