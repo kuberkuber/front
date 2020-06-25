@@ -5,7 +5,7 @@ import {
     Chip,
 } from '@material-ui/core';
 import LinkIcon from '@material-ui/icons/Link';
-import API from 'components/API';
+import Endpoint from 'components/Endpoint';
 
 const title = {
     "marginTop": "60px",
@@ -32,8 +32,8 @@ const unavailableStyle = {
 
 const DetailRepo = () => {
     const location = useLocation();
-    console.log(location.state); // "bar"
-    const row = location.state.row
+    console.log(location.state);
+    const row = location.state.row;
 
     return (
         <div>
@@ -42,7 +42,7 @@ const DetailRepo = () => {
                     <span style={titleStyle}>
                         {row.name}
 					</span>
-                    {row.status === "True"?
+                    {row.status === "True" ?
                         <Chip
                             size="small"
                             label="Available"
@@ -69,9 +69,11 @@ const DetailRepo = () => {
                 <Typography variant="h6" gutterBottom>
                     API endpoints
 				</Typography>
-                <API method={"GET"} title={"/"} />
-                <API method={"GET"} title={"/foo"} />
-                <API method={"GET"} title={"/foo/bar"} />
+                {!row.api_doc ?
+                    <div></div>
+                    :
+                    <Endpoint api_doc={row.api_doc}/>
+                }
             </div>
         </div>
     );

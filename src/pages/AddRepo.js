@@ -100,7 +100,7 @@ const AddRepo = (props) => {
             repo_name : repoName,
             image_name: dockerImage,
             port_num : port,
-            api_doc : swaggerInfo===null ? null : swaggerInfo.paths
+            api_doc : swaggerInfo === null ? null : swaggerInfo.paths
         };
         console.log(swaggerInfo);
         request(formData);

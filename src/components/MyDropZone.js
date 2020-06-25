@@ -6,7 +6,7 @@ const whitebox = {
     "border": "1px",
     "borderStyle": "Solid",
     "borderColor": "#eeeeee",
-    "border-radius": "3px",
+    "borderRadius": "3px",
     "width": "90%",
     "display": "inline-block"
 }
