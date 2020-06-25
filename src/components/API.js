@@ -9,15 +9,15 @@ import Response from './Response';
 import {Grid} from '@material-ui/core';
 
 const content = {
-	"margin-bottom": "30px"
+	"marginBottom": "30px"
 };
 
 const pathStyle = {
-	"margin-right": "10px"
+	"marginRight": "10px"
 }
 
 const gridStyle = {
-	"margin-bottom": "30px",
+	"marginBottom": "30px",
 };
 
 const API = ({method, title}) => {

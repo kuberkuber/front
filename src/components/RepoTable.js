@@ -41,15 +41,9 @@ const RepoTable = ({ data }) => {
                         {rows.map((row) => (
                             <TableRow key={row.name}>
                                 <TableCell component="th" scope="row">
-                                    {/* {row.status === "True" ? */}
-                                        <Link to={{ pathname: `/repo/`, state: { 'foo': 'bar'} }} style={{ textDecoration: 'none' }}>
-                                            {row.name}
-                                        </Link>
-                                        {/* :
-                                        <Link style={{ textDecoration: 'none' }}>
-                                            {row.name}
-                                        </Link>
-                                    } */}
+                                    <Link to={{ pathname: `/repo/${row.name}`, state: {row} }} style={{ textDecoration: 'none' }}>
+                                        {row.name}
+                                    </Link>
                                 </TableCell>
                                 <TableCell align="left">
                                     {/* {row.status === "True" ? 'Available' : 'Deploying'} */}

@@ -10,19 +10,19 @@ const titleStyle = {
 }
 
 const gridStyle = {
-	// "margin-top": "30px",
+	// "marginTop": "30px",
 	"marginBottom": "10px",
 };
 
 const bodyStyle = {
 	"marginTop": "10px",
 	"marginBottom": "20px",
-	"background-color": "black",
+	"backgroundColor": "black",
 	"color": "white",
 };
 
 const textStyle = {
-	"white-space": "pre-wrap"
+	"whiteSpace": "pre-wrap"
 }
 
 const codeStyle = {
@@ -30,7 +30,7 @@ const codeStyle = {
 }
 
 const buttonStyle = {
-	"background-color": "yellowgreen",
+	"backgroundColor": "yellowgreen",
 	"color": "white"
 }
 

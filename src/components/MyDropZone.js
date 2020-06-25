@@ -20,7 +20,7 @@ const box = {
     "borderRadius": "2px",
     "borderStyle": "dashed",
     "borderColor": "#eeeeee",
-    "background-color": "#fafafa",
+    "backgroundColor": "#fafafa",
     "color": "#bdbdbd",
     "outline": "none",
     "transition": "border .24s ease-in-out"

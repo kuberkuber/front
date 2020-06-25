@@ -27,14 +27,14 @@ const inputStyle = {
 }
 
 const gridStyle = {
-	"margin-bottom": "30px",
+	"marginBottom": "30px",
 };
 
 const buttonStyle = {
 	width: "100%",
 	float: "center",
 	color : "white",
-	"background-color": "darkgreen",
+	"backgroundColor": "darkgreen",
 }
 
 const ParamTable = () => {

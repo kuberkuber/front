@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React  from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
     Typography,
@@ -20,30 +20,45 @@ const content = {
     "marginBottom": "50px"
 };
 
-const chipStyle = {
+const availableStyle = {
     color: "white",
-    "background-color": "darkgreen",
+    "backgroundColor": "darkgreen",
+}
+
+const unavailableStyle = {
+    color: "white",
+    "backgroundColor": "red",
 }
 
 const DetailRepo = () => {
     const location = useLocation();
     console.log(location.state); // "bar"
+    const row = location.state.row
 
     return (
         <div>
             <div style={title}>
                 <Typography variant="h3" gutterBottom>
                     <span style={titleStyle}>
-                        echo-server
+                        {row.name}
 					</span>
-                    <Chip
-                        size="small"
-                        label="Available"
-                        clickable
-                        style={chipStyle}
-                    />
+                    {row.status === "True"?
+                        <Chip
+                            size="small"
+                            label="Available"
+                            clickable
+                            style={availableStyle}
+                        />
+                        :
+                        <Chip
+                            size="small"
+                            label="Unavailable"
+                            clickable
+                            style={unavailableStyle}
+                        />
+                    }
                 </Typography>
-                <Link style={{ textDecoration: 'none' }}>
+                <Link to={row.endpoint} style={{ textDecoration: 'none' }}>
                     <Typography variant="h6" gutterBottom>
                         Access to endpoint of deployment
 						<LinkIcon />
