@@ -20,7 +20,7 @@ const gridStyle = {
 	"marginBottom": "30px",
 };
 
-const API = ({method, title}) => {
+const API = ({method, title, info, endpoint}) => {
 	return (
 		<div style={content}>
 			<ExpansionPanel>
@@ -39,10 +39,10 @@ const API = ({method, title}) => {
 				<ExpansionPanelDetails>
 					<Grid container >
 						<Grid item xs={12} style={gridStyle}>
-							<ParamTable />
+							<ParamTable endpoint= {endpoint} parameters={info.parameters}/>
 						</Grid>
 						<Grid item xs={12} style={gridStyle}>
-							<Response />
+							<Response responses={info.responses}/>
 						</Grid>
 					</Grid>
 				</ExpansionPanelDetails>

@@ -32,9 +32,7 @@ const unavailableStyle = {
 
 const DetailRepo = () => {
     const location = useLocation();
-    console.log(location.state);
     const row = location.state.row;
-
     return (
         <div>
             <div style={title}>
@@ -58,12 +56,12 @@ const DetailRepo = () => {
                         />
                     }
                 </Typography>
-                <Link to={row.endpoint} style={{ textDecoration: 'none' }}>
+                <a target='_blank' href={"http://"+row.endpoint} style={{ textDecoration: 'none' }}>
                     <Typography variant="h6" gutterBottom>
                         Access to endpoint of deployment
 						<LinkIcon />
                     </Typography>
-                </Link>
+                </a>
             </div>
             <div style={content}>
                 <Typography variant="h6" gutterBottom>
@@ -72,7 +70,7 @@ const DetailRepo = () => {
                 {!row.api_doc ?
                     <div></div>
                     :
-                    <Endpoint api_doc={row.api_doc}/>
+                    <Endpoint endpoint={row.endpoint} api_doc={row.api_doc}/>
                 }
             </div>
         </div>

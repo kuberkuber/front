@@ -9,8 +9,6 @@ import {
     Paper
 } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import ErrorIcon from '@material-ui/icons/Error';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import { Link,withRouter } from 'react-router-dom';
 
@@ -19,7 +17,6 @@ const tableStyle = {
 };
 
 const RepoTable = ({ data }) => {
-    console.log(data);
     const [rows, setRow] = useState(data);
     console.log(data)
     useEffect(() => {
@@ -56,11 +53,12 @@ const RepoTable = ({ data }) => {
                                     </div>:
                                     'Deploying...'
                                 }
-                                {/* {row.status === "True" ? 'Available' : <ErrorIcon/>'Error(Pull docker image)'} */}
                                 </TableCell>
                                 <TableCell align="left">{row.create_time}</TableCell>
                                 <TableCell align="left">
-                                    <SettingsIcon />
+                                    <a href={"http://hub.docker.com/r/"+ row.image}>
+                                        <SettingsIcon />
+                                    </a>
                                 </TableCell>
                             </TableRow>
                         ))}

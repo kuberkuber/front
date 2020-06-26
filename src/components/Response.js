@@ -46,7 +46,7 @@ const buttonStyle = {
 // res = JSON.stringify(res, null, '\t');
 var res = "Hello jungeun!"
 
-const Response = () => {
+const Response = ({responses}) => {
 	return (
 		<div>
 			<Grid container >

@@ -66,11 +66,11 @@ const AddRepo = (props) => {
         });
     }
 
-//    const refreshPage 
+//    const refreshPage
     const goMainPage = (formData) => {
         dispatch({
             type: 'INSERTDATA',
-            data: { name: formData.repo_name, create_time: new Date().toString(),status: "False" }
+            data: { name: formData.repo_name, create_time: new Date().toString(),status: "Deploying..." }
         });
         props.history.push({
             pathname: '/',
