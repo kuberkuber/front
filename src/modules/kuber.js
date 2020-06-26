@@ -14,7 +14,7 @@ function kuberData(state = initialState, action) {
     switch (action.type) {
         case GETDATA:
             return {
-                state
+                ...state
             };
         case INSERTDATA:
             return {

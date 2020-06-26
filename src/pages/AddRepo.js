@@ -66,6 +66,7 @@ const AddRepo = (props) => {
         });
     }
 
+//    const refreshPage 
     const goMainPage = (formData) => {
         dispatch({
             type: 'INSERTDATA',
@@ -77,8 +78,8 @@ const AddRepo = (props) => {
     }
     const request = async (formData) => {
         try {
-            const response = await axios.post("http://127.0.0.1:5000/deploy",formData);
-            // const response = await axios.post("http://ef1beadeda41.ngrok.io/deploy",formData);
+            //const response = await axios.post("http://127.0.0.1:5000/deploy",formData);
+             const response = await axios.post("http://d9450dd1cd53.ngrok.io/deploy",formData);
             await asyncFunc(formData,response);
             swaggerInfo = null;
             // const response = await axios.post("",formData);
@@ -192,10 +193,13 @@ const AddRepo = (props) => {
                         }}
                     />
                 </div>
-                {/* <div>
-                    <input type="file" onChange={swaggerRead} />
-                </div> */}
-                <MyDropzone swaggerRead={swaggerRead}></MyDropzone>
+                <div style={content}>
+                    <Typography variant="h6" style={{ "textAlign": "left" }} gutterBottom>
+                        API document
+				</Typography>
+
+                    <MyDropzone swaggerRead={swaggerRead} />
+                </div>
                 <br/>
                 <div style={content}>
                     {/* <Link to={`/`} style={{ textDecoration: 'none' }}> */}

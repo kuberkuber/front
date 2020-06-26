@@ -3,7 +3,7 @@ import { Link, Switch, Route, useLocation } from 'react-router-dom';
 import {
     Button
 } from '@material-ui/core';
-import { AddRepo, DetailRepo } from '.';
+import { AddRepo, DetailRepo, Setpage } from '.';
 import RepoTable from 'components/RepoTable';
 import { useSelector,useDispatch } from 'react-redux';
 import axios from 'axios';
@@ -43,6 +43,10 @@ const Dashboard = () => {
     return (
         <div>
             <Switch>
+                {/* Route에 setting page 경로 추가 */}
+            <Route path={`/setting/`}> 
+                    <Setpage/>
+                    </Route>
                 <Route path={`/add`}>
                     <AddRepo />
                 </Route>
