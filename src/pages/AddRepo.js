@@ -1,5 +1,5 @@
-import React, { Component, useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import { Button, Typography, TextField } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
@@ -57,16 +57,12 @@ const AddRepo = (props) => {
             return portError;
         return false;
     }
-
     const asyncFunc = (formData,res) => {
-        console.log('서버응답후',res);
         dispatch({
             type: 'ACTIVEDATA',
             name: formData.repo_name
         });
     }
-
-//    const refreshPage
     const goMainPage = (formData) => {
         dispatch({
             type: 'INSERTDATA',
@@ -78,12 +74,10 @@ const AddRepo = (props) => {
     }
     const request = async (formData) => {
         try {
-            //const response = await axios.post("http://127.0.0.1:5000/deploy",formData);
-            const response = await axios.post("http://0d2ab618eb53.ngrok.io/deploy",formData);
+//            const response = await axios.post("http://127.0.0.1:5000/deploy",formData);
+            const response = await axios.post("http://b42fc8abfa89.ngrok.io/deploy",formData);
             await asyncFunc(formData,response);
             swaggerInfo = null;
-            // const response = await axios.post("",formData);
-            // return response;
         }
         catch (error) {
             console.log(error);
@@ -103,7 +97,6 @@ const AddRepo = (props) => {
             port_num : port,
             api_doc : swaggerInfo === null ? null : swaggerInfo.paths
         };
-        console.log(swaggerInfo);
         request(formData);
         goMainPage(formData);
     };
@@ -111,11 +104,9 @@ const AddRepo = (props) => {
 
         let file = e.target.files[0];
         let fileReader = new FileReader();
-        console.log(file);
         if (file !== undefined) {
             fileReader.onload = () => {
                 swaggerInfo = YAML.parse(fileReader.result);
-                console.log(swaggerInfo);
             };
             fileReader.readAsText(file);
         }
@@ -202,11 +193,9 @@ const AddRepo = (props) => {
                 </div>
                 <br/>
                 <div style={content}>
-                    {/* <Link to={`/`} style={{ textDecoration: 'none' }}> */}
                     <Button variant="outlined" color="primary" type="submit">
                         Register and Deploy
 					</Button>
-                    {/* </Link> */}
                 </div>
             </div>
         </form>

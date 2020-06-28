@@ -24,45 +24,48 @@ function kuberData(state = initialState, action) {
                 ...state,
                 repos: [...state.repos, action.data]
             };
-        case ACTIVEDATA:
+        case ACTIVEDATA: {
             let idx = -1;
             idx = (state.repos).findIndex(repo=>(repo.name===action.name && repo.status==="Deploying..."));
-            if(idx!=-1)
+            if(idx!==-1)
                 state.repos[idx].status = "True";
             return {
                 ...state,
                 repos: [...state.repos]
             };
-        case UPDATEDATA:
+        }
+        case UPDATEDATA: {
             let ndata = [];
             ndata = ndata.concat(action.data);
             return {
                 ...state,
                 repos: ndata
             };
-        case CHANGEDATA:
-            let idx2 = (state.repos).findIndex(repo=>(repo.name===action.name));
+        }
+        case CHANGEDATA:{
+            let idx = (state.repos).findIndex(repo=>(repo.name===action.name));
             
-            state.repos[idx2].deploy_time = action.data;
+            state.repos[idx].deploy_time = action.data;
             return {
                 ...state,
                 repos: [...state.repos]
             };
-        case CHANGEPORT:
-            let idx4 = (state.repos).findIndex(repo=>(repo.name===action.name));
-            
-            state.repos[idx4].port = action.data;
+        }
+        case CHANGEPORT:{
+            let idx = (state.repos).findIndex(repo=>(repo.name===action.name));
+            state.repos[idx].port = action.data;
             return {
                 ...state,
                 repos: [...state.repos]
             };
-        case DELETEDATA:
-//            const commentId = action.data;
-//            return state.filter(comment => comment.id !== commentId);
+        }
+        case DELETEDATA:{
+            return {
+                ...state,
+                repos : state.repos.filter(repo => repo.name !== action.name)
 
-            let idx3 = (state.repos).findIndex(repo=>(repo.name===action.name));
-//            return state.deleteIn(['state.respos', idx]);
-    
+            };
+        }
         default:
             return state;
     }

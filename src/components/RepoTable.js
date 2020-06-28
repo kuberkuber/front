@@ -21,7 +21,7 @@ const iconStyle = {
 }
 const RepoTable = ({ data }) => {
     const [rows, setRow] = useState(data);
-    console.log(data)
+    
     useEffect(() => {
         setRow(data);
     },[data]);

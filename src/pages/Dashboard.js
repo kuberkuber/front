@@ -17,9 +17,11 @@ const Dashboard = () => {
     const dispatch = useDispatch();
     const kuberData = useSelector(state => state.kuberData);
     const data = kuberData.repos;
+    console.log(data);
     const request = async () => {
         try {
-            const response = await axios.get("http://0d2ab618eb53.ngrok.io/", {
+//            const response = await axios.post("http://127.0.0.1:5000/", {
+            const response = await axios.get("http://b42fc8abfa89.ngrok.io/", {
                 params: {
                   namespace: "test"
                 }
@@ -28,7 +30,6 @@ const Dashboard = () => {
                 type: 'UPDATEDATA',
                 data : response.data
             });
-            console.log(response.data);
             return response.data;
         }
         catch (error) {
