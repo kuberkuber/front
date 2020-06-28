@@ -6,7 +6,8 @@ import {
     TableContainer,
     TableHead,
     TableRow,
-    Paper
+    Paper,
+    IconButton
 } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
@@ -15,7 +16,9 @@ import { Link,withRouter } from 'react-router-dom';
 const tableStyle = {
     "marginTop": "100px",
 };
-
+const iconStyle = {
+    "color" : "#000000",
+}
 const RepoTable = ({ data }) => {
     const [rows, setRow] = useState(data);
     console.log(data)
@@ -54,11 +57,16 @@ const RepoTable = ({ data }) => {
                                     'Deploying...'
                                 }
                                 </TableCell>
-                                <TableCell align="left">{row.create_time}</TableCell>
+                                <TableCell align="left">{row.deploy_time}</TableCell>
                                 <TableCell align="left">
-                                    <a href={"http://hub.docker.com/r/"+ row.image}>
-                                        <SettingsIcon />
-                                    </a>
+                                <Link to={{pathname:`/setting/${row.name}`, state:{row} }}>
+                                        <IconButton 
+                                            aria-label="setting" 
+                                            style={iconStyle}
+                                        >
+                                        <SettingsIcon/>
+                                        </IconButton>
+                                        </Link>
                                 </TableCell>
                             </TableRow>
                         ))}

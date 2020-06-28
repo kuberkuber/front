@@ -51,7 +51,7 @@ const ParamTable = ({ method, endpoint, parameters }) => {
     const goMainPage = (formData) => {
         dispatch({
             type: 'INSERTDATA',
-            data: { name: formData.repo_name, create_time: new Date().toString(), status: "False" }
+            data: { name: formData.repo_name, deploy_time: new Date().toString(), status: "False" }
         });
     }
     const request = async (params) => {
