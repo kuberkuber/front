@@ -19,7 +19,7 @@ const Dashboard = () => {
     const data = kuberData.repos;
     const request = async () => {
         try {
-            const response = await axios.get("http://127.0.0.1:5000/", {
+            const response = await axios.get("http://0d2ab618eb53.ngrok.io/", {
                 params: {
                   namespace: "test"
                 }

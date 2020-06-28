@@ -39,7 +39,7 @@ const API = ({method, title, info, endpoint}) => {
 				<ExpansionPanelDetails>
 					<Grid container >
 						<Grid item xs={12} style={gridStyle}>
-							<ParamTable endpoint= {endpoint} parameters={info.parameters}/>
+							<ParamTable method={method} endpoint= {endpoint} parameters={info.parameters}/>
 						</Grid>
 						<Grid item xs={12} style={gridStyle}>
 							<Response responses={info.responses}/>

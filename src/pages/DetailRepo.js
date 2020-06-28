@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
     Typography,
@@ -39,7 +39,7 @@ const DetailRepo = () => {
                 <Typography variant="h3" gutterBottom>
                     <span style={titleStyle}>
                         {row.name}
-					</span>
+                    </span>
                     {row.status === "True" ?
                         <Chip
                             size="small"
@@ -56,7 +56,7 @@ const DetailRepo = () => {
                         />
                     }
                 </Typography>
-                <a target='_blank' href={"http://"+row.endpoint} style={{ textDecoration: 'none' }}>
+                <a target='_blank' href={"http://" + row.endpoint} style={{ textDecoration: 'none' }}>
                     <Typography variant="h6" gutterBottom>
                         Access to endpoint of deployment
 						<LinkIcon />
@@ -70,7 +70,7 @@ const DetailRepo = () => {
                 {!row.api_doc ?
                     <div></div>
                     :
-                    <Endpoint endpoint={row.endpoint} api_doc={row.api_doc}/>
+                    <Endpoint endpoint={row.endpoint} api_doc={row.api_doc} />
                 }
             </div>
         </div>

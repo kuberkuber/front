@@ -79,7 +79,7 @@ const AddRepo = (props) => {
     const request = async (formData) => {
         try {
             //const response = await axios.post("http://127.0.0.1:5000/deploy",formData);
-             const response = await axios.post("http://d9450dd1cd53.ngrok.io/deploy",formData);
+            const response = await axios.post("http://0d2ab618eb53.ngrok.io/deploy",formData);
             await asyncFunc(formData,response);
             swaggerInfo = null;
             // const response = await axios.post("",formData);

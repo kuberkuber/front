@@ -23,7 +23,7 @@ function kuberData(state = initialState, action) {
             };
         case ACTIVEDATA:
             let idx = -1;
-            idx = (state.repos).findIndex(repo=>(repo.name===action.name && repo.status==="False"));
+            idx = (state.repos).findIndex(repo=>(repo.name===action.name && repo.status==="Deploying..."));
             if(idx!=-1)
                 state.repos[idx].status = "True";
             return {

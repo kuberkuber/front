@@ -55,7 +55,7 @@ const Setpage = (props) => {
     const update = async (formData) => {
         try {
             
-            const response = await axios.patch("http://d9450dd1cd53.ngrok.io/test/repo/"+row.name,formData);
+            const response = await axios.patch("http://0d2ab618eb53.ngrok.io/test/repo/"+row.name,formData);
             await asyncFunc(formData,response);
             swaggerInfo = null;
             console.log(row.image);
@@ -67,7 +67,7 @@ const Setpage = (props) => {
     const deleteProject = async (formData) => {
         
         try {
-        const response = await axios.delete("http://d9450dd1cd53.ngrok.io/test/repo/"+row.name,formData);
+        const response = await axios.delete("http://0d2ab618eb53.ngrok.io/test/repo/"+row.name,formData);
             await asyncFunc(formData,response);
             swaggerInfo = null;
             // const response = await axios.post("",formData);
