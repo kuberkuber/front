@@ -56,7 +56,7 @@ const DetailRepo = () => {
                         />
                     }
                 </Typography>
-                <a target='_blank' href={"http://" + row.endpoint} style={{ textDecoration: 'none' }}>
+                <a target='_blank' href={row.endpoint} style={{ textDecoration: 'none' }}>
                     <Typography variant="h6" gutterBottom>
                         Access to endpoint of deployment
 						<LinkIcon />
