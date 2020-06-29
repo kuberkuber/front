@@ -12,6 +12,7 @@ import {
 import SettingsIcon from '@material-ui/icons/Settings';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import { Link,withRouter } from 'react-router-dom';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const tableStyle = {
     "marginTop": "100px",
@@ -57,7 +58,7 @@ const RepoTable = ({ data }) => {
                                     'Deploying...'
                                 }
                                 </TableCell>
-                                <TableCell align="left">{row.deploy_time}</TableCell>
+                                <TableCell align="left">{row.status === "True" ?   row.deploy_time : <CircularProgress />}</TableCell>
                                 <TableCell align="left">
                                 <Link to={{pathname:`/setting/${row.name}`, state:{row} }}>
                                         <IconButton 
