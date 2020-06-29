@@ -60,13 +60,14 @@ const AddRepo = (props) => {
     const asyncFunc = (formData,res) => {
         dispatch({
             type: 'ACTIVEDATA',
-            name: formData.repo_name
+            name: formData.repo_name,
+            deploy_time: res.data
         });
     }
     const goMainPage = (formData) => {
         dispatch({
             type: 'INSERTDATA',
-            data: { name: formData.repo_name, deploy_time: new Date().toString(),status: "Deploying..." }
+            data: { name: formData.repo_name, deploy_time: "",status: "Deploying..." }
         });
         props.history.push({
             pathname: '/',
@@ -74,8 +75,8 @@ const AddRepo = (props) => {
     }
     const request = async (formData) => {
         try {
-//            const response = await axios.post("http://127.0.0.1:5000/deploy",formData);
-            const response = await axios.post("http://b42fc8abfa89.ngrok.io/deploy",formData);
+            const response = await axios.post("http://127.0.0.1:5000/deploy",formData);
+            // const response = await axios.post("http://b42fc8abfa89.ngrok.io/deploy",formData);
             await asyncFunc(formData,response);
             swaggerInfo = null;
         }
@@ -188,7 +189,6 @@ const AddRepo = (props) => {
                     <Typography variant="h6" style={{ "textAlign": "left" }} gutterBottom>
                         API document
 				</Typography>
-
                     <MyDropzone swaggerRead={swaggerRead} />
                 </div>
                 <br/>

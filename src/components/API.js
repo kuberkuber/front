@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
@@ -21,6 +21,11 @@ const gridStyle = {
 };
 
 const API = ({method, title, info, endpoint}) => {
+	const [res, setRes] = useState(null)
+	const getResponse = (response) => {
+		setRes(response);
+	}
+
 	return (
 		<div style={content}>
 			<ExpansionPanel>
@@ -39,11 +44,15 @@ const API = ({method, title, info, endpoint}) => {
 				<ExpansionPanelDetails>
 					<Grid container >
 						<Grid item xs={12} style={gridStyle}>
-							<ParamTable method={method} endpoint= {endpoint} parameters={info.parameters}/>
+							<ParamTable method={method} endpoint= {endpoint} parameters={info.parameters} getResponse={getResponse}/>
 						</Grid>
-						<Grid item xs={12} style={gridStyle}>
-							<Response responses={info.responses}/>
-						</Grid>
+						{
+							res != null ?
+							<Grid item xs={12} style={gridStyle}>
+								<Response info={info.responses} response={res}/>
+							</Grid> :
+							""
+						}
 					</Grid>
 				</ExpansionPanelDetails>
 			</ExpansionPanel>

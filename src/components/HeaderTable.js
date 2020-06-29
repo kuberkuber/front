@@ -10,18 +10,8 @@ import {
 	Typography,
 } from '@material-ui/core';
 
-function createData(key, value ) {
-	return { key, value };
-  }
-
-const rows = [
-	createData('Content-Type', 'text/html; charset=utf-8'),
-	createData('Content-Length', '89'),
-	createData('Server', 'Werkzeug/1.0.1 Python/3.6.9'),
-	createData('Date', 'Wed, 10 Jun 2020 16:54:52 GMT'),
-];
-
-const HeaderTable = () => {
+const HeaderTable = ({headers}) => {
+	console.log()
 	return (
 		<TableContainer component={Paper}>
 		<Table aria-label="simple table">
@@ -32,18 +22,18 @@ const HeaderTable = () => {
 			</TableRow>
 			</TableHead>
 			<TableBody>
-			{rows.map((row) => (
-				<TableRow key={row.key}>
+			{Object.keys(headers).map(key =>
+				<TableRow key={key}>
 				<TableCell component="th" scope="row">
 					<Typography>
-						{row.key}
+						{key}
 					</Typography>
 				</TableCell>
 				<TableCell align="left">
-					{row.value}
+					{headers[key]}
 				</TableCell>
 				</TableRow>
-			))}
+			)}
 			</TableBody>
 		</Table>
 		</TableContainer>

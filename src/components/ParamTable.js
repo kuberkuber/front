@@ -31,7 +31,7 @@ const buttonStyle = {
     "backgroundColor": "darkgreen",
 }
 
-const ParamTable = ({ method, endpoint, parameters }) => {
+const ParamTable = ({ method, endpoint, parameters, getResponse }) => {
     const rows = parameters;
     // console.log("parameters",parameters);
     // console.log("method",method);
@@ -40,50 +40,34 @@ const ParamTable = ({ method, endpoint, parameters }) => {
     let uri = endpoint;
     let refs = useRef([React.createRef(), React.createRef()]);
 
-    const asyncFunc = (formData, res) => {
-        console.log('서버응답후', res);
-        dispatch({
-            type: 'ACTIVEDATA',
-            name: formData.repo_name
-        });
+    const passResponse = (response) => {
+        getResponse(response);
     }
 
-    const goMainPage = (formData) => {
-        dispatch({
-            type: 'INSERTDATA',
-            data: { name: formData.repo_name, deploy_time: new Date().toString(), status: "False" }
-        });
-    }
     const request = async (params) => {
         try {
-            // console.log("uri",uri);
-            jsonp("http://kuberkuber-cluster-bace65abd86cb82e.elb.ap-northeast-2.amazonaws.com/test/trry/?namespace=test&name=a&age=13", null, (err, data) => {
-                if (err) {
-                    console.error(err.message);
-                } else {
-                    console.log(data);
-                }
-            });
-			// const response = await axios.get('http://kuberkuber-cluster-bace65abd86cb82e.elb.ap-northeast-2.amazonaws.com/test/trry/?namespace=test&name=a&age=13', {
-			// 	params
-			// });
-			// console.log(response.data);
+            const response = await axios.get(uri+params);
             // await asyncFunc(formData,response);
-            // return response;
+            return response;
         }
         catch (error) {
             console.log(error);
         }
     }
-    const onSubmitForm = (e) => {
+    const onSubmitForm = async (e) => {
         e.preventDefault();
-        const params = {
-            namespace: "test"
-        };
+        let params = "?";
+        // const params = {};
         rows.map((e, i) => {
-            params[parameters[i].name] = refs.current[i].current.value;
+            params += parameters[i].name +"="+refs.current[i].current.value+"&";
+            // params[parameters[i].name] = refs.current[i].current.value;
         });
-        request(params);
+        try {
+            const response = await request(params.slice(0, -1));
+            passResponse(response)
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     return (

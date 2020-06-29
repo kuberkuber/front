@@ -22,7 +22,7 @@ const iconStyle = {
 }
 const RepoTable = ({ data }) => {
     const [rows, setRow] = useState(data);
-    
+    console.log(data)
     useEffect(() => {
         setRow(data);
     },[data]);
@@ -58,11 +58,17 @@ const RepoTable = ({ data }) => {
                                     'Deploying...'
                                 }
                                 </TableCell>
-                                <TableCell align="left">{row.status === "True" ?   row.deploy_time : <CircularProgress />}</TableCell>
+                                {/* <TableCell align="left"><CircularProgress /></TableCell> */}
+                                <TableCell align="left">
+                                    {row.status === "True" || row.status === "False" ?
+                                        row.deploy_time :
+                                        <CircularProgress />
+                                    }
+                                </TableCell>
                                 <TableCell align="left">
                                 <Link to={{pathname:`/setting/${row.name}`, state:{row} }}>
-                                        <IconButton 
-                                            aria-label="setting" 
+                                        <IconButton
+                                            aria-label="setting"
                                             style={iconStyle}
                                         >
                                         <SettingsIcon/>

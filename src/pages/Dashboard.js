@@ -17,11 +17,9 @@ const Dashboard = () => {
     const dispatch = useDispatch();
     const kuberData = useSelector(state => state.kuberData);
     const data = kuberData.repos;
-    console.log(data);
     const request = async () => {
         try {
-//            const response = await axios.post("http://127.0.0.1:5000/", {
-            const response = await axios.get("http://b42fc8abfa89.ngrok.io/", {
+            const response = await axios.get("http://127.0.0.1:5000/", {
                 params: {
                   namespace: "test"
                 }
@@ -45,7 +43,7 @@ const Dashboard = () => {
         <div>
             <Switch>
                 {/* Route에 setting page 경로 추가 */}
-            <Route path={`/setting/`}> 
+            <Route path={`/setting/`}>
                     <Setpage/>
                     </Route>
                 <Route path={`/add`}>

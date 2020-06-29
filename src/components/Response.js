@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
 	Grid,
 	Button
@@ -10,7 +10,6 @@ const titleStyle = {
 }
 
 const gridStyle = {
-	// "marginTop": "30px",
 	"marginBottom": "10px",
 };
 
@@ -46,7 +45,19 @@ const buttonStyle = {
 // res = JSON.stringify(res, null, '\t');
 var res = "Hello jungeun!"
 
-const Response = ({responses}) => {
+const Response = ({info, response}) => {
+	const [body, setBody] = useState('');
+	const [headers, setHeader] = useState('');
+	const [resStatus, setResStatus] = useState('');
+
+	useEffect(() => {
+		if(response) {
+			setBody(response.data);
+			setResStatus(response.status);
+			setHeader(response.headers);
+		}
+	}, [response]);
+
 	return (
 		<div>
 			<Grid container >
@@ -55,7 +66,7 @@ const Response = ({responses}) => {
 						Response
 					</span>
 					<Button size="small" variant="contained" style={buttonStyle}>
-						200
+						{resStatus}
 					</Button>
 				</Grid>
 				<Grid item xs={12}>
@@ -64,7 +75,7 @@ const Response = ({responses}) => {
 				<Grid item xs={12} style={bodyStyle}>
 					<div style={codeStyle}>
 						<span style={textStyle}>
-							{res}
+							{body}
 						</span>
 					</div>
 				</Grid>
@@ -72,7 +83,7 @@ const Response = ({responses}) => {
 					Headers
 				</Grid>
 				<Grid item xs={12} style={gridStyle}>
-					<HeaderTable />
+					<HeaderTable headers={headers}/>
 				</Grid>
 			</Grid>
 		</div>

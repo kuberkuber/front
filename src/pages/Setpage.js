@@ -59,20 +59,20 @@ const Setpage = (props) => {
             pathname: '/',
         });
     }
-    const request = async (formData) => { // reDeploy 
+    const request = async (formData) => { // reDeploy
         try {
 //            const response = await axios.post("http://127.0.0.1:5000/deploy",formData);
-            const response = await axios.post("http://b42fc8abfa89.ngrok.io/test/repo/"+row.name+"/redeploy",formData);
+            const response = await axios.post("http://127.0.0.1:5000/test/repo/"+row.name+"/redeploy",formData);
             await asyncFunc(formData,response);
         }
         catch (error) {
             console.log(error);
         }
     }
-    const update = async (formData) => { // port Update 
+    const update = async (formData) => { // port Update
         try {
 //            const response = await axios.post("http://127.0.0.1:5000/",formData);
-            const response = await axios.patch("http://b42fc8abfa89.ngrok.io/test/repo/"+row.name,formData);
+            const response = await axios.patch("http://127.0.0.1:5000/test/repo/"+row.name,formData);
             await asyncPortFunc(formData,response);
             alert("port 변경!");
         }
@@ -83,7 +83,7 @@ const Setpage = (props) => {
     const remove = async (formData) => { // Delete repository
         try {
 //            const response = await axios.post("http://127.0.0.1:5000/",formData);
-            const response = await axios.delete("http://b42fc8abfa89.ngrok.io/test/repo/"+row.name,formData);
+            const response = await axios.delete("http://127.0.0.1:5000/test/repo/"+row.name,formData);
             await asyncDelFunc(formData);
             await goMainPage();
         }
@@ -134,14 +134,14 @@ const Setpage = (props) => {
                     <a target='_blank'  href={"https://hub.docker.com/r/"+row.image}>https://hub.docker.com/r/{row.image}</a>
                     <div style={{marginTop:"20px"}}>
                     <form onSubmit={reDeploy}>
-                        <Button 
-                        variant="outlined" 
-                        color="primary" 
-                        type="submit" 
+                        <Button
+                        variant="outlined"
+                        color="primary"
+                        type="submit"
                         >
                             Re-deploy
                         </Button>
-                        <span style={{padding:"20px"}}> 
+                        <span style={{padding:"20px"}}>
                         {row.deploy_time}
                         </span>
                         </form>
@@ -172,7 +172,7 @@ const Setpage = (props) => {
                             variant="outlined"
                             color="primary"
                             type="submit"
-                            style={{ marginTop: "10px" }}                      
+                            style={{ marginTop: "10px" }}
                         >
                             Update
 					</Button>
@@ -183,7 +183,7 @@ const Setpage = (props) => {
 				<Typography variant="h6" style={{"textAlign":"left"}} gutterBottom>
 					Delete Project
 				</Typography>
-                <p>Deleting a project will make your deployment unavailable, 
+                <p>Deleting a project will make your deployment unavailable,
                     but your image will remain at the original repository.</p>
                 <form onSubmit={deleteRepo}>
                 <Button variant="outlined" color="secondary" type="submit">
