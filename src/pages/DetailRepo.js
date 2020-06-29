@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import {
     Typography,
     Chip,
@@ -56,7 +56,7 @@ const DetailRepo = () => {
                         />
                     }
                 </Typography>
-                <a target='_blank' href={row.endpoint} style={{ textDecoration: 'none' }}>
+                <a target='_blank' rel="noopener noreferrer" href={row.endpoint} style={{ textDecoration: 'none' }}>
                     <Typography variant="h6" gutterBottom>
                         Access to endpoint of deployment
 						<LinkIcon />

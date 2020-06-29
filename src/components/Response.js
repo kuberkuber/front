@@ -33,18 +33,6 @@ const buttonStyle = {
 	"color": "white"
 }
 
-// var res = {
-// 	"results": [
-// 		"string"
-// 	],
-// 	"options": [{
-// 	  "key": "string",
-// 	  "value": true
-// 	}]
-// }
-// res = JSON.stringify(res, null, '\t');
-var res = "Hello jungeun!"
-
 const Response = ({info, response}) => {
 	const [body, setBody] = useState('');
 	const [headers, setHeader] = useState('');

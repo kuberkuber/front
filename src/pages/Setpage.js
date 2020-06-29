@@ -131,7 +131,7 @@ const Setpage = (props) => {
                         Connected container
 				    </Typography>
                     <label style={labelStyle}>Container </label>
-                    <a target='_blank'  href={"https://hub.docker.com/r/"+row.image}>https://hub.docker.com/r/{row.image}</a>
+                    <a target='_blank' rel="noopener noreferrer" href={"https://hub.docker.com/r/"+row.image}>https://hub.docker.com/r/{row.image}</a>
                     <div style={{marginTop:"20px"}}>
                     <form onSubmit={reDeploy}>
                         <Button
@@ -153,7 +153,7 @@ const Setpage = (props) => {
 				    </Typography>
                     <TextField
                         id="standard-full-width"
-                        placeholder={row.port}
+                        placeholder={String(row.port)}
                         value={port}
                         onChange={
                             (e) => {

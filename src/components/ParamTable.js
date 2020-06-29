@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import {
     Table,
     TableBody,
@@ -14,7 +13,6 @@ import {
     Button
 } from '@material-ui/core';
 import axios from 'axios';
-import jsonp from 'jsonp';
 
 const inputStyle = {
     width: "100%"
@@ -33,10 +31,6 @@ const buttonStyle = {
 
 const ParamTable = ({ method, endpoint, parameters, getResponse }) => {
     const rows = parameters;
-    // console.log("parameters",parameters);
-    // console.log("method",method);
-    // console.log("endpoint",endpoint);
-    const dispatch = useDispatch();
     let uri = endpoint;
     let refs = useRef([React.createRef(), React.createRef()]);
 
@@ -47,7 +41,6 @@ const ParamTable = ({ method, endpoint, parameters, getResponse }) => {
     const request = async (params) => {
         try {
             const response = await axios.get(uri+params);
-            // await asyncFunc(formData,response);
             return response;
         }
         catch (error) {
@@ -57,10 +50,8 @@ const ParamTable = ({ method, endpoint, parameters, getResponse }) => {
     const onSubmitForm = async (e) => {
         e.preventDefault();
         let params = "?";
-        // const params = {};
         rows.map((e, i) => {
             params += parameters[i].name +"="+refs.current[i].current.value+"&";
-            // params[parameters[i].name] = refs.current[i].current.value;
         });
         try {
             const response = await request(params.slice(0, -1));

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link, Switch, Route, useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, Switch, Route } from 'react-router-dom';
 import {
     Button
 } from '@material-ui/core';
