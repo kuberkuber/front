@@ -48,8 +48,8 @@ const AddRepo = (props) => {
             }
         }
         //중복체크
-        for(const e in data){
-            if(e.name === pname)
+        for(const idx in data){
+            if(data[idx].name === pname)
                 return uniqueError;
         }
         //port
