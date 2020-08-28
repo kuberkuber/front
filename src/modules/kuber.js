@@ -30,6 +30,7 @@ function kuberData(state = initialState, action) {
             if(idx!==-1) {
                 state.repos[idx].status = "True";
                 state.repos[idx].deploy_time = action.deploy_time;
+                // state.repos[idx].api = action.api;
             }
             return {
                 ...state,
@@ -55,6 +56,7 @@ function kuberData(state = initialState, action) {
         }
         case CHANGEPORT:{
             let idx = (state.repos).findIndex(repo=>(repo.name===action.name));
+            console.log(action.data);
             state.repos[idx].port = action.data;
             return {
                 ...state,

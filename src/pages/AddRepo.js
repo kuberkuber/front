@@ -58,16 +58,18 @@ const AddRepo = (props) => {
         return false;
     }
     const asyncFunc = (formData,res) => {
+        console.log(formData, res);
         dispatch({
             type: 'ACTIVEDATA',
-            name: formData.repo_name,
-            deploy_time: res.data
+            name: formData.repoName,
+            deploy_time: res.data,
+            // api: formData.api_doc
         });
     }
     const goMainPage = (formData) => {
         dispatch({
             type: 'INSERTDATA',
-            data: { name: formData.repo_name, deploy_time: "",status: "Deploying..." }
+            data: { name: formData.repoName, deploy_time: "",status: "Deploying..." }
         });
         props.history.push({
             pathname: '/',
@@ -75,8 +77,8 @@ const AddRepo = (props) => {
     }
     const request = async (formData) => {
         try {
-            const response = await axios.post("http://127.0.0.1:5000/deploy",formData);
-            // const response = await axios.post("http://b42fc8abfa89.ngrok.io/deploy",formData);
+            //const response = await axios.post("http://6831233c05a7.ngrok.io/deploy",formData);
+             const response = await axios.post("http://6831233c05a7.ngrok.io/deploy",formData);
             await asyncFunc(formData,response);
             swaggerInfo = null;
         }
@@ -93,10 +95,10 @@ const AddRepo = (props) => {
         }
         const formData = {
             namespace : "test",
-            repo_name : repoName,
-            image_name: dockerImage,
-            port_num : port,
-            api_doc : swaggerInfo === null ? null : swaggerInfo.paths
+            repoName : repoName,
+            imageName: dockerImage,
+            portNum : port,
+            apiDoc : swaggerInfo === null ? null : swaggerInfo.paths
         };
         request(formData);
         goMainPage(formData);

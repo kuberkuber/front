@@ -37,21 +37,22 @@ const Setpage = (props) => {
     const asyncPortFunc = (formData,res) => { //action type : UPDATEDATA 일 경우,
         dispatch({
             type: 'CHANGEPORT',
-            name: formData.repo_name,
+            name: formData.repoName,
             data : res.data
         });
+        console.log(data);
     }
     const asyncFunc = (formData,res) => { //action type : UPDATEDATA 일 경우,
         dispatch({
             type: 'CHANGEDATA',
-            name: formData.repo_name,
+            name: formData.repoName,
             data : res.data
         });
     }
     const asyncDelFunc =(formData) => { //action type : DELETEDATA 일 경우,
         dispatch({
             type: 'DELETEDATA',
-            name: formData.repo_name
+            name: formData.repoName
         })
     }
     const goMainPage = () => {
@@ -61,8 +62,8 @@ const Setpage = (props) => {
     }
     const request = async (formData) => { // reDeploy
         try {
-//            const response = await axios.post("http://127.0.0.1:5000/deploy",formData);
-            const response = await axios.post("http://127.0.0.1:5000/test/repo/"+row.name+"/redeploy",formData);
+//            const response = await axios.post("http://6831233c05a7.ngrok.io/deploy",formData);
+            const response = await axios.post("http://6831233c05a7.ngrok.io/test/repo/"+row.name+"/redeploy",formData);
             await asyncFunc(formData,response);
         }
         catch (error) {
@@ -71,8 +72,8 @@ const Setpage = (props) => {
     }
     const update = async (formData) => { // port Update
         try {
-//            const response = await axios.post("http://127.0.0.1:5000/",formData);
-            const response = await axios.patch("http://127.0.0.1:5000/test/repo/"+row.name,formData);
+//            const response = await axios.post("http://6831233c05a7.ngrok.io/",formData);
+            const response = await axios.patch("http://6831233c05a7.ngrok.io/test/repo/"+row.name,formData);
             await asyncPortFunc(formData,response);
             alert("port 변경!");
         }
@@ -82,8 +83,8 @@ const Setpage = (props) => {
     }
     const remove = async (formData) => { // Delete repository
         try {
-//            const response = await axios.post("http://127.0.0.1:5000/",formData);
-            const response = await axios.delete("http://127.0.0.1:5000/test/repo/"+row.name,formData);
+//            const response = await axios.post("http://6831233c05a7.ngrok.io/",formData);
+            const response = await axios.delete("http://6831233c05a7.ngrok.io/test/repo/"+row.name,formData);
             await asyncDelFunc(formData);
             await goMainPage();
         }
@@ -98,8 +99,8 @@ const Setpage = (props) => {
             alert(msg);
         }
         const formData = {
-            repo_name: row.name,
-            port_num : port
+            repoName: row.name,
+            portNum : port
         };
 
         update(formData);
@@ -107,14 +108,14 @@ const Setpage = (props) => {
     const reDeploy = (e) => { // re-deploy 버튼
         e.preventDefault();
         const formData = {
-            repo_name: row.name,
+            repoName: row.name,
         };
         request(formData);
     }
     const deleteRepo = (e) => { // delete 버튼
         e.preventDefault();
         const formData = {
-            repo_name: row.name,
+            repoName: row.name,
         }
         remove(formData);
     }
