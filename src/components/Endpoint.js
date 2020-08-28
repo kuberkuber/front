@@ -1,11 +1,13 @@
 import React from 'react';
 import API from 'components/API';
 
-const Endpoint = ({endpoint, api_doc}) => {
-	let apis = api_doc.replace(/'/g,'"');
-    apis = apis.replace(/True/g,'"True"');
-    apis = apis.replace(/False/g,'"False"');
-	apis = JSON.parse(apis)
+const Endpoint = ({endpoint, apiDoc}) => {
+	console.log(apiDoc);
+	// let apis = apiDoc.replace(/'/g,'"');
+    // apis = apis.replace(/True/g,'"True"');
+	// apis = apis.replace(/False/g,'"False"');
+	const apis = JSON.parse(apiDoc);
+//	apis = JSON.parse(apis)
 
 	return (
 		<div>

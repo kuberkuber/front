@@ -67,10 +67,10 @@ const DetailRepo = () => {
                 <Typography variant="h6" gutterBottom>
                     API endpoints
 				</Typography>
-                {!row.api_doc ?
+                {!row.apiDoc ?
                     <div></div>
                     :
-                    <Endpoint endpoint={row.endpoint} api_doc={row.api_doc} />
+                    <Endpoint endpoint={row.endpoint} apiDoc={row.apiDoc} />
                 }
             </div>
         </div>

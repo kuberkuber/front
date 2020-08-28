@@ -30,7 +30,7 @@ function kuberData(state = initialState, action) {
             if(idx!==-1) {
                 state.repos[idx].status = "True";
                 state.repos[idx].deploy_time = action.deploy_time;
-                // state.repos[idx].api = action.api;
+                state.repos[idx].apiDoc = action.apiDoc;
             }
             return {
                 ...state,

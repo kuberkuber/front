@@ -63,10 +63,11 @@ const AddRepo = (props) => {
             type: 'ACTIVEDATA',
             name: formData.repoName,
             deploy_time: res.data,
-            // api: formData.api_doc
+            apiDoc: formData.apiDoc
         });
     }
     const goMainPage = (formData) => {
+        
         dispatch({
             type: 'INSERTDATA',
             data: { name: formData.repoName, deploy_time: "",status: "Deploying..." }
@@ -77,6 +78,7 @@ const AddRepo = (props) => {
     }
     const request = async (formData) => {
         try {
+            console.log(formData);
             //const response = await axios.post("http://6831233c05a7.ngrok.io/deploy",formData);
              const response = await axios.post("http://6831233c05a7.ngrok.io/deploy",formData);
             await asyncFunc(formData,response);
