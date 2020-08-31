@@ -2,21 +2,14 @@ import React from 'react';
 import API from 'components/API';
 
 const Endpoint = ({endpoint, apiDoc}) => {
-	console.log(apiDoc);
-	// let apis = apiDoc.replace(/'/g,'"');
-    // apis = apis.replace(/True/g,'"True"');
-	// apis = apis.replace(/False/g,'"False"');
-	const apis = JSON.parse(apiDoc);
-//	apis = JSON.parse(apis)
-
 	return (
 		<div>
-			{Object.keys(apis).map((api) => (
-				Object.keys(apis[api]).map((method) => (
+			{Object.keys(apiDoc).map((api) => (
+				Object.keys(apiDoc[api]).map((method) => (
 					<API key={method}
 						method={method.toUpperCase()}
 						title={api}
-						info={apis[api][method]}
+						info={apiDoc[api][method]}
 						endpoint={endpoint+api}
 					/>
 				))
