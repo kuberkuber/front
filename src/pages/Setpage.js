@@ -16,18 +16,26 @@ const labelStyle = {
     "paddingRight" : "50px"
 };
 
-const Setpage = (props) => {
-    const location = useLocation();
-    const row = location.state.row;
-    const [port, setPort] = useState('');
+const Setpage = (props) => { 
     const dispatch = useDispatch();
     const kuberData = useSelector(state => state.kuberData);
     const data = kuberData.repos;
+    
+    const location = useLocation();
+    const row = location.state.row;
+    
     const d = data.filter(repo=>repo.name===row.name);
+//    console.log(d[0]);
+    let placeport = "";
+
     for (const key in d[0]) {
         if( key === "port" && d[0].hasOwnProperty(key))
-            row.port =(data[0][key])
+            row.port = d[0].port;
+            placeport = d[0].port;
     }
+//    console.log(row);
+    const [port, setPort] = useState('');
+
 
     const isError = (pport) => {
         const portError = "port number should be number"
@@ -42,7 +50,9 @@ const Setpage = (props) => {
             name: formData.repoName,
             data : formData.portNum
         });
-        console.log(data);
+        console.log(port);
+//        row.port = formData.portNum;
+        console.log(formData.portNum);
     }
     const asyncFunc = (formData,res) => { //action type : UPDATEDATA 일 경우,
         dispatch({
@@ -64,19 +74,21 @@ const Setpage = (props) => {
     }
     const request = async (formData) => { // reDeploy
         try {
-//            const response = await axios.post("http://6831233c05a7.ngrok.io/deploy",formData);
-            const response = await axios.post("http://6831233c05a7.ngrok.io/test/repo/"+row.name+"/redeploy",formData);
+//            const response = await axios.post("http://80bee1a8d9d5.ngrok.io/deploy",formData);
+            const response = await axios.post("http://80bee1a8d9d5.ngrok.io/test/repo/"+row.name+"/redeploy",formData);
             await asyncFunc(formData,response);
         }
         catch (error) {
             console.log(error);
         }
     }
+
     const update = async (formData) => { // port Update
         try {
-//            const response = await axios.post("http://6831233c05a7.ngrok.io/",formData);
-            const response = await axios.patch("http://6831233c05a7.ngrok.io/test/repo/"+row.name,formData);
+//            const response = await axios.post("http://80bee1a8d9d5.ngrok.io/",formData);
+            const response = await axios.patch("http://80bee1a8d9d5.ngrok.io/test/repo/"+row.name,formData);
             await asyncPortFunc(formData,response);
+
             alert("port 변경!");
         }
         catch (error) {
@@ -85,8 +97,8 @@ const Setpage = (props) => {
     }
     const remove = async (formData) => { // Delete repository
         try {
-//            const response = await axios.post("http://6831233c05a7.ngrok.io/",formData);
-            const response = await axios.delete("http://6831233c05a7.ngrok.io/test/repo/"+row.name,formData);
+//            const response = await axios.post("http://80bee1a8d9d5.ngrok.io/",formData);
+            const response = await axios.delete("http://80bee1a8d9d5.ngrok.io/test/repo/"+row.name,formData);
             await asyncDelFunc(formData);
             await goMainPage();
         }
@@ -104,6 +116,7 @@ const Setpage = (props) => {
             repoName: row.name,
             portNum : port
         };
+        row.port = formData.portNum;
         console.log(formData.portNum);
         update(formData);
     }
@@ -156,7 +169,7 @@ const Setpage = (props) => {
 				    </Typography>
                     <TextField
                         id="standard-full-width"
-                        placeholder={String(row.port)}
+                        placeholder={placeport}
                         value={port}
                         onChange={
                             (e) => {
