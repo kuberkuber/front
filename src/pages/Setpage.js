@@ -28,17 +28,19 @@ const Setpage = (props) => {
         if( key === "port" && d[0].hasOwnProperty(key))
             row.port =(data[0][key])
     }
+
     const isError = (pport) => {
         const portError = "port number should be number"
         if(isNaN(pport))
             return portError;
         return false;
     }
-    const asyncPortFunc = (formData,res) => { //action type : UPDATEDATA 일 경우,
+    const asyncPortFunc = (formData) => { //action type : UPDATEDATA 일 경우,
+        
         dispatch({
             type: 'CHANGEPORT',
             name: formData.repoName,
-            data : res.data
+            data : formData.portNum
         });
         console.log(data);
     }
@@ -102,7 +104,7 @@ const Setpage = (props) => {
             repoName: row.name,
             portNum : port
         };
-
+        console.log(formData.portNum);
         update(formData);
     }
     const reDeploy = (e) => { // re-deploy 버튼

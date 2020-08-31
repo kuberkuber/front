@@ -56,7 +56,6 @@ function kuberData(state = initialState, action) {
         }
         case CHANGEPORT:{
             let idx = (state.repos).findIndex(repo=>(repo.name===action.name));
-            console.log(action.data);
             state.repos[idx].port = action.data;
             return {
                 ...state,
