@@ -57,11 +57,11 @@ const MyDropzone = ({ swaggerRead }) => {
     return (
         <section className="container" style={whitebox}>
             <div style={boxstyle} {...getRootProps()}>
-                <input {...getInputProps()} onChange={swaggerRead} />
+                <input {...getInputProps()}/>
                 <p>Drag 'n' drop some files here, or click to select files</p>
                 <button type="button" onClick={open}>
                     Open File Dialog
-        </button>
+                </button>
             </div>
             <aside>
                 <ul>{fileSize}</ul>
