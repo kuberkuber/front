@@ -3,7 +3,7 @@ import { Link, Switch, Route } from 'react-router-dom';
 import {
     Button
 } from '@material-ui/core';
-import { AddRepo, DetailRepo, Setpage } from '.';
+import { AddRepo, DetailRepo, Setpage, Login } from '.';
 import RepoTable from 'components/RepoTable';
 import { useSelector,useDispatch } from 'react-redux';
 import axios from 'axios';
@@ -48,6 +48,9 @@ const Dashboard = () => {
                     </Route>
                 <Route path={`/add`}>
                     <AddRepo />
+                </Route>
+                <Route path={`/login`}>
+                    <Login />
                 </Route>
                 <Route path={`/repo/`}>
                     <DetailRepo />
