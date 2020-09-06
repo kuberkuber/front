@@ -5,6 +5,7 @@ import {
  } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, IconButton, Button, Grid } from '@material-ui/core';
 import CloudQueueIcon from '@material-ui/icons/CloudQueue';
+import GitHubIcon from '@material-ui/icons/GitHub';
 
 const toolbar = {
 	marginLeft: "25%",
@@ -14,10 +15,9 @@ const name = {
 	fontFamily:"Arial",
 	paddingLeft:"10px"
 };
-const toolbarBtn = {
-	  color:"white",
-	  fontSize: '18px',
-	};
+const gitBtn = {
+	color:"white",
+}
 
 
 const Menu = () => {
@@ -36,9 +36,9 @@ const Menu = () => {
 				</IconButton>
 				</Grid>
 				<Grid item xs={6}>
-				<Button style={toolbarBtn} variant="inherit" href="\login" >
-  					Login
-				</Button>
+				<IconButton onClick={()=> window.open("/login", 'new', 'scrollbars=no,resizable=no,width=570,height=350,left=100,top=150')}>
+						<GitHubIcon style={gitBtn} fontSize="large"/>
+					</IconButton>
 				</Grid>
 			</Toolbar>
 		</AppBar>
