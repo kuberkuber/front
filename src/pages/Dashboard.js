@@ -5,7 +5,7 @@ import {
 } from '@material-ui/core';
 import { AddRepo, DetailRepo, Setpage, Login } from '.';
 import RepoTable from 'components/RepoTable';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 
 const button = {
@@ -21,12 +21,12 @@ const Dashboard = () => {
         try {
             const response = await axios.get("http://59b0f175ead6.ngrok.io/", {
                 params: {
-                  namespace: "test"
+                    namespace: "test"
                 }
             });
             await dispatch({
                 type: 'UPDATEDATA',
-                data : response.data
+                data: response.data
             });
             return response.data;
         }
@@ -37,20 +37,20 @@ const Dashboard = () => {
 
     useEffect(() => {
         request();
-    },[]);
+    }, []);
 
     return (
         <div>
             <Switch>
                 {/* Route에 setting page 경로 추가 */}
-            <Route path={`/setting/`}>
-                    <Setpage/>
-                    </Route>
+                <Route path={`/setting/`}>
+                    <Setpage />
+                </Route>
+                {/* {<Route path={`/login`}>
+                    <Login/>
+                    </Route>} */}
                 <Route path={`/add`}>
                     <AddRepo />
-                </Route>
-                <Route path={`/login`}>
-                    <Login />
                 </Route>
                 <Route path={`/repo/`}>
                     <DetailRepo />
@@ -65,8 +65,9 @@ const Dashboard = () => {
 						</Button>
                     </Link>
                     <RepoTable data={data} />
-                    <br/>
+                    <br />
                 </Route>
+
             </Switch>
         </div>
     );

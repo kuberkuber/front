@@ -1,34 +1,26 @@
 import React from 'react';
-import { Typography, Button } from '@material-ui/core';
-import GitHubIcon from '@material-ui/icons/GitHub';
+import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
-const btnStyle = {
-  backgroundColor: "black",
-  color: "white",
-  paddingLeft:"20px",
-  paddingRight:"20px",
-}
-const gitIcon = {
-  color: "white",
-  paddingRight: "30px"
-}
-const Login = () => {
-  
-  return (
-    <div style={{"textAlign":"center"}}>
-      <h1 style={{"marginBottom":"50px"}}>
-        로그인
-      </h1>
-      <div>
-        <Button variant="contained" style={btnStyle}>
-          <GitHubIcon fontSize="medium" style={gitIcon} />
-          Github로 계속하기
-					</Button>
-      </div>
-      <div>
-      </div>
-    </div>
+const response = "http://59b0f175ead6.ngrok.io/login";
+
+//const client_id = "a1867741904e42ccabee";
+//const clientSecret = process.env.clientSecret;
+
+const Login = ()=> (
+  console.log("hi"),
+//  get https://github.com/login/oauth/authorize?client_id={client_id}&redirect_uri={http://...}
+   axios.get(response)
+   .then(res => {
+     window.location.href= res.data;
+   }) 
+   .catch(err => {
+     console.log(err)
+   })
+  //, { headers:  { "Access-Control-Allow-Origin" : "*"}}s
+//async (props)
   );
-};
+
 
 export default Login;
+
