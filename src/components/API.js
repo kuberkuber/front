@@ -20,7 +20,7 @@ const gridStyle = {
 	"marginBottom": "30px",
 };
 
-const API = ({method, title, info, endpoint}) => {
+const API = ({method, title, info, endpointUri}) => {
 	const [res, setRes] = useState(null)
 	const getResponse = (response) => {
 		setRes(response);
@@ -44,7 +44,7 @@ const API = ({method, title, info, endpoint}) => {
 				<ExpansionPanelDetails>
 					<Grid container >
 						<Grid item xs={12} style={gridStyle}>
-							<ParamTable method={method} endpoint= {endpoint} parameters={info.parameters} getResponse={getResponse}/>
+							<ParamTable method={method} endpointUri= {endpointUri} parameters={info.parameters} getResponse={getResponse}/>
 						</Grid>
 						{
 							res != null ?

@@ -33,6 +33,7 @@ const unavailableStyle = {
 const DetailRepo = () => {
     const location = useLocation();
     const row = location.state.row;
+
     return (
         <div>
             <div style={title}>

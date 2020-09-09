@@ -10,7 +10,7 @@ const Endpoint = ({endpoint, apiDoc}) => {
 						method={method.toUpperCase()}
 						title={api}
 						info={apiDoc[api][method]}
-						endpoint={endpoint+api}
+						endpointUri={endpoint+api}
 					/>
 				))
 			))}

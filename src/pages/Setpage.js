@@ -16,14 +16,14 @@ const labelStyle = {
     "paddingRight" : "50px"
 };
 
-const Setpage = (props) => { 
+const Setpage = (props) => {
     const dispatch = useDispatch();
     const kuberData = useSelector(state => state.kuberData);
     const data = kuberData.repos;
-    
+
     const location = useLocation();
     const row = location.state.row;
-    
+
     const d = data.filter(repo=>repo.name===row.name);
 //    console.log(d[0]);
     let placeport = "";
@@ -44,7 +44,7 @@ const Setpage = (props) => {
         return false;
     }
     const asyncPortFunc = (formData) => { //action type : UPDATEDATA 일 경우,
-        
+
         dispatch({
             type: 'CHANGEPORT',
             name: formData.repoName,
@@ -74,8 +74,8 @@ const Setpage = (props) => {
     }
     const request = async (formData) => { // reDeploy
         try {
-//            const response = await axios.post("http://80bee1a8d9d5.ngrok.io/deploy",formData);
-            const response = await axios.post("http://80bee1a8d9d5.ngrok.io/test/repo/"+row.name+"/redeploy",formData);
+//            const response = await axios.post("http://59b0f175ead6.ngrok.io/deploy",formData);
+            const response = await axios.post("http://59b0f175ead6.ngrok.io/test/repo/"+row.name+"/redeploy",formData);
             await asyncFunc(formData,response);
         }
         catch (error) {
@@ -85,8 +85,8 @@ const Setpage = (props) => {
 
     const update = async (formData) => { // port Update
         try {
-//            const response = await axios.post("http://80bee1a8d9d5.ngrok.io/",formData);
-            const response = await axios.patch("http://80bee1a8d9d5.ngrok.io/test/repo/"+row.name,formData);
+//            const response = await axios.post("http://59b0f175ead6.ngrok.io/",formData);
+            const response = await axios.patch("http://59b0f175ead6.ngrok.io/test/repo/"+row.name,formData);
             await asyncPortFunc(formData,response);
 
             alert("port 변경!");
@@ -97,8 +97,8 @@ const Setpage = (props) => {
     }
     const remove = async (formData) => { // Delete repository
         try {
-//            const response = await axios.post("http://80bee1a8d9d5.ngrok.io/",formData);
-            const response = await axios.delete("http://80bee1a8d9d5.ngrok.io/test/repo/"+row.name,formData);
+//            const response = await axios.post("http://59b0f175ead6.ngrok.io/",formData);
+            const response = await axios.delete("http://59b0f175ead6.ngrok.io/test/repo/"+row.name,formData);
             await asyncDelFunc(formData);
             await goMainPage();
         }
@@ -158,7 +158,7 @@ const Setpage = (props) => {
                             Re-deploy
                         </Button>
                         <span style={{padding:"20px"}}>
-                        {row.deploy_time}
+                        {row.deployTime}
                         </span>
                         </form>
                      </div>

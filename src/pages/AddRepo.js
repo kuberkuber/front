@@ -62,15 +62,16 @@ const AddRepo = (props) => {
         dispatch({
             type: 'ACTIVEDATA',
             name: formData.repoName,
-            deploy_time: res.data,
+            deployTime: res.data.deployTime,
+            endpoint: res.data.endpoint,
             apiDoc: formData.apiDoc
         });
     }
     const goMainPage = (formData) => {
-        
+
         dispatch({
             type: 'INSERTDATA',
-            data: { name: formData.repoName, deploy_time: "",status: "Deploying..." }
+            data: { name: formData.repoName, deployTime: "",status: "Deploying..." }
         });
         props.history.push({
             pathname: '/',
@@ -79,8 +80,8 @@ const AddRepo = (props) => {
     const request = async (formData) => {
         try {
             console.log(formData.apiDoc);
-            //const response = await axios.post("http://80bee1a8d9d5.ngrok.io/deploy",formData);
-             const response = await axios.post("http://80bee1a8d9d5.ngrok.io/deploy",formData);
+            //const response = await axios.post("http://59b0f175ead6.ngrok.io/deploy",formData);
+             const response = await axios.post("http://59b0f175ead6.ngrok.io/deploy",formData);
             await asyncFunc(formData,response);
             swaggerInfo = null;
         }

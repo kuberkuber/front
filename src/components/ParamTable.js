@@ -29,9 +29,8 @@ const buttonStyle = {
     "backgroundColor": "darkgreen",
 }
 
-const ParamTable = ({ method, endpoint, parameters, getResponse }) => {
+const ParamTable = ({ method, endpointUri, parameters, getResponse }) => {
     const rows = parameters;
-    let uri = endpoint;
     let refs = useRef([React.createRef(), React.createRef()]);
 
     const passResponse = (response) => {
@@ -40,7 +39,7 @@ const ParamTable = ({ method, endpoint, parameters, getResponse }) => {
 
     const request = async (params) => {
         try {
-            const response = await axios.get(uri+params);
+            const response = await axios.get(endpointUri+params);
             return response;
         }
         catch (error) {

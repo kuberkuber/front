@@ -61,7 +61,7 @@ const RepoTable = ({ data }) => {
                                 {/* <TableCell align="left"><CircularProgress /></TableCell> */}
                                 <TableCell align="left">
                                     {row.status === "True" || row.status === "False" ?
-                                        row.deploy_time :
+                                        row.deployTime :
                                         <CircularProgress />
                                     }
                                 </TableCell>
