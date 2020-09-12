@@ -1,6 +1,7 @@
 //action
 
 const GETDATA = 'GETDATA';
+const LOGIN = 'LOGIN';
 const INSERTDATA = 'INSERTDATA';
 const ACTIVEDATA = 'ACTIVEDATA';
 const UPDATEDATA = 'UPDATEDATA';
@@ -10,11 +11,24 @@ const CHANGEPORT = 'CHANGEPORT';
 
 const initialState = {
     // { name: 'echo-server', create_time: 'Jun. 09 2020, 16:14:34 +09:00',status: "True"}
+    user: {
+        namespace: '',
+        userToken: ''
+    },
     repos: []
 };
 
 function kuberData(state = initialState, action) {
     switch (action.type) {
+        /* Add Login action */
+        case LOGIN:
+            return {
+                ...state,
+                user: {
+                    namespace: action.namespace,
+                    userToken: action.userToken
+                }
+            }
         case GETDATA:
             return {
                 state

@@ -3,12 +3,11 @@ import {
 	// NavLink,
 	Link
 } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, IconButton, Button, Grid } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, IconButton, Grid } from '@material-ui/core';
 import CloudQueueIcon from '@material-ui/icons/CloudQueue';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import axios from 'axios';
-import { Login } from '../pages';
-
+// import { useDispatch } from 'react-redux';
 const toolbar = {
 	marginLeft: "25%",
 };
@@ -21,7 +20,15 @@ const gitBtn = {
 	color: "white",
 };
 
-const Menu = () => {
+const Menu = (props) => {
+	const login = async () => {
+		const response = await axios.get("http://8bb8d2572824.ngrok.io/login");
+		window.location.href = response.data;
+		props.history.push({
+			pathname: '/',
+		});
+	}
+
 	return (
 		<div>
 			<AppBar position="static">
@@ -37,8 +44,7 @@ const Menu = () => {
 						</IconButton>
 					</Grid>
 					<Grid item xs={6}>
-						<IconButton onClick={Login}> 
-							
+						<IconButton onClick={login}>
 							{/* <Link to={`/login`}> */}
 							<GitHubIcon style={gitBtn} fontSize="large" />
 							{/* </Link> */}
