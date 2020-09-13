@@ -8,12 +8,10 @@ import { Grid } from '@material-ui/core';
 // import {kuberProvider} from './contexts/context'
 class App extends Component {
     render() {
-		// console.log("props", this.props);
-
         return (
             // <kuberProvider>
                 <div>
-                    <Menu {...this.props}/>
+                    <Menu/>
                     <div className="App-content">
                         <Grid>
                             <Grid item xs={12}>

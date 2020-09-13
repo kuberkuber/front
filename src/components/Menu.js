@@ -1,13 +1,10 @@
 import React from 'react';
-import {
-	// NavLink,
-	Link
-} from 'react-router-dom';
+import { Link, withRouter, Route } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, IconButton, Grid } from '@material-ui/core';
 import CloudQueueIcon from '@material-ui/icons/CloudQueue';
 import GitHubIcon from '@material-ui/icons/GitHub';
-import axios from 'axios';
-// import { useDispatch } from 'react-redux';
+import Login from '../pages/Login';
+
 const toolbar = {
 	marginLeft: "25%",
 };
@@ -20,15 +17,7 @@ const gitBtn = {
 	color: "white",
 };
 
-const Menu = (props) => {
-	const login = async () => {
-		const response = await axios.get("http://8bb8d2572824.ngrok.io/login");
-		window.location.href = response.data;
-		props.history.push({
-			pathname: '/',
-		});
-	}
-
+const Menu = () => {
 	return (
 		<div>
 			<AppBar position="static">
@@ -44,10 +33,8 @@ const Menu = (props) => {
 						</IconButton>
 					</Grid>
 					<Grid item xs={6}>
-						<IconButton onClick={login}>
-							{/* <Link to={`/login`}> */}
+						<IconButton onClick={Login}>
 							<GitHubIcon style={gitBtn} fontSize="large" />
-							{/* </Link> */}
 						</IconButton>
 						{/* <IconButton onClick={()=> window.open("/login", 'new', 'scrollbars=no,resizable=no,width=570,height=350,left=100,top=150')}>
 						<GitHubIcon style={gitBtn} fontSize="large"/>
@@ -59,4 +46,4 @@ const Menu = (props) => {
 	);
 };
 
-export default Menu;
+export default withRouter(Menu);
