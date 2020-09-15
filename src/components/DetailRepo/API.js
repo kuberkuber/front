@@ -25,20 +25,23 @@ const API = ({method, title, info, endpointUri}) => {
 	const getResponse = (response) => {
 		setRes(response);
 	}
-
 	return (
 		<div style={content}>
 			<ExpansionPanel>
 				<ExpansionPanelSummary
 					expandIcon={<ExpandMoreIcon />}
 					aria-controls="panel1a-content"
-					id="panel1a-header"
-				>
+					id="panel1a-header">
 					<Typography variant="h6" style={pathStyle}>
 						{method}
 					</Typography>
 					<Typography variant="h6">
 						{title}
+					</Typography>
+				</ExpansionPanelSummary>
+				<ExpansionPanelSummary>
+					<Typography variant="subtitle1">
+						Description : {info.description}
 					</Typography>
 				</ExpansionPanelSummary>
 				<ExpansionPanelDetails>
