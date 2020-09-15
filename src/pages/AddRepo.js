@@ -4,7 +4,7 @@ import { Button, Typography, TextField } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import YAML from 'yamljs';
-import MyDropzone from 'components/AddRepo/MyDropZone';
+import MyDropzone from 'components/MyDropZone';
 
 const title = {
     "marginTop": "60px",
@@ -22,7 +22,6 @@ const AddRepo = (props) => {
     const kuberData = useSelector(state => state.kuberData);
     const data = kuberData.repos;
     let swaggerInfo = null;
-
     const dispatch = useDispatch();
 
     const isError = (pname,pport) => {
@@ -30,7 +29,7 @@ const AddRepo = (props) => {
         const uniqueError = "repository name should be unique"
         const portError = "port number should be number"
         //repo name 체크
-        const re = new RegExp("[a-z\-]+");
+        const re = new RegExp("[a-z]([a-z\-]*)[a-z]");
         if (!pname.match(re)) {
             return repoError;
         }
@@ -44,6 +43,7 @@ const AddRepo = (props) => {
             return portError;
         return false;
     }
+
     const asyncFunc = (formData,res) => {
         console.log("res",formData, res);
         dispatch({
@@ -54,8 +54,8 @@ const AddRepo = (props) => {
             apiDoc: formData.apiDoc
         });
     }
-    const goMainPage = (formData) => {
 
+    const goMainPage = (formData) => {
         dispatch({
             type: 'INSERTDATA',
             data: { name: formData.repoName, deployTime: "",status: "Deploying..." }
@@ -64,11 +64,12 @@ const AddRepo = (props) => {
             pathname: '/',
         });
     }
+
     const request = async (formData) => {
         try {
             console.log(formData.apiDoc);
-            //const response = await axios.post("http://8bb8d2572824.ngrok.io/deploy",formData);
-             const response = await axios.post("http://8bb8d2572824.ngrok.io/deploy",formData);
+            //const response = await axios.post("http://1d4d08fc088f.ngrok.io/deploy",formData);
+             const response = await axios.post("http://1d4d08fc088f.ngrok.io/deploy",formData);
             await asyncFunc(formData,response);
             swaggerInfo = null;
         }
@@ -93,8 +94,8 @@ const AddRepo = (props) => {
         request(formData);
         goMainPage(formData);
     };
-    const swaggerRead = (e) => {
 
+    const swaggerRead = (e) => {
         let file = e.target.files[0];
         let fileReader = new FileReader();
         if (file !== undefined) {
@@ -107,25 +108,23 @@ const AddRepo = (props) => {
 
     return (
         <form onSubmit={onSubmitForm}>
-
             <div>
                 <div style={title}>
                     <Typography variant="h4" gutterBottom>
                         Register new repository
-				</Typography>
+				    </Typography>
                 </div>
                 <div style={content}>
                     <Typography variant="h6" gutterBottom>
                         Repository name
-				</Typography>
+				    </Typography>
                     <TextField
                         id="standard-full-width"
                         label="Repository name should be unique"
                         placeholder="my-first-repo"
                         value={repoName}
-                        onChange={
-                            (e) => {
-                                setRepoName(e.target.value)
+                        onChange={(e) => {
+                            setRepoName(e.target.value)
                             }
                         }
                         fullWidth
@@ -138,15 +137,14 @@ const AddRepo = (props) => {
                 <div style={content}>
                     <Typography variant="h6" gutterBottom>
                         Docker Image
-				</Typography>
+                    </Typography>
                     <TextField
                         id="standard-full-width"
                         label="KuberKuber only support public image's lates tag"
                         placeholder="DockerHub image to deploy (e.g. demo/image)"
                         value={dockerImage}
-                        onChange={
-                            (e) => {
-                                setDockerImage(e.target.value)
+                        onChange={(e) => {
+                            setDockerImage(e.target.value)
                             }
                         }
                         fullWidth
@@ -159,14 +157,13 @@ const AddRepo = (props) => {
                 <div style={content}>
                     <Typography variant="h6" style={{ "textAlign": "left" }} gutterBottom>
                         Port
-				</Typography>
+                    </Typography>
                     <TextField
                         id="standard-full-width"
                         placeholder="80"
                         value={port}
-                        onChange={
-                            (e) => {
-                                setPort(e.target.value)
+                        onChange={(e) => {
+                            setPort(e.target.value)
                             }
                         }
                         helperText="Port number for access to container"
@@ -180,7 +177,7 @@ const AddRepo = (props) => {
                 <div style={content}>
                     <Typography variant="h6" style={{ "textAlign": "left" }} gutterBottom>
                         API document
-				</Typography>
+                    </Typography>
                     <MyDropzone swaggerRead={swaggerRead} />
                 </div>
                 <br/>
@@ -193,6 +190,5 @@ const AddRepo = (props) => {
         </form>
     );
 }
-
 
 export default withRouter(AddRepo);
