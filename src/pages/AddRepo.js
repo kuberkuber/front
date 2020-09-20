@@ -24,24 +24,35 @@ const AddRepo = (props) => {
     let swaggerInfo = null;
     const dispatch = useDispatch();
 
-    const isError = (pname,pport) => {
+    const isRepoNameError = () => {
         const repoError = "repository name must consist of lower case alphanumeric characters or '-', and must start and end with an alphanumeric character";
         const uniqueError = "repository name should be unique"
-        const portError = "port number should be number"
-        //repo name 체크
-        const re = new RegExp("[a-z]([a-z\-]*)[a-z]");
-        if (!pname.match(re)) {
+        const re = new RegExp('^[a-z]([-a-z0-9]*[a-z0-9])?$');
+        if (repoName.length > 0 && !repoName.match(re)) {
             return repoError;
         }
-        //중복체크
         for(const idx in data){
-            if(data[idx].name === pname)
-                return uniqueError;
+            if(data[idx].name === repoName)
+            return uniqueError;
         }
-        //port
-        if(isNaN(pport))
+        return '';
+    }
+
+    const isPortError = () => {
+        const portError = "port number should be number"
+        if (isNaN(port))
             return portError;
-        return false;
+        return '';
+    }
+
+    const isError = (repoName, port) => {
+        let errMsg = isRepoNameError(repoName);
+        if (errMsg !== '')
+            return errMsg;
+        errMsg = isPortError(port);
+        if (errMsg !== '')
+            return errMsg;
+        return ''
     }
 
     const asyncFunc = (formData,res) => {
@@ -68,8 +79,7 @@ const AddRepo = (props) => {
     const request = async (formData) => {
         try {
             console.log(formData.apiDoc);
-            //const response = await axios.post("http://1d4d08fc088f.ngrok.io/deploy",formData);
-             const response = await axios.post("http://1d4d08fc088f.ngrok.io/deploy",formData);
+             const response = await axios.post("http://363750994707.ngrok.io/deploy",formData);
             await asyncFunc(formData,response);
             swaggerInfo = null;
         }
@@ -80,7 +90,7 @@ const AddRepo = (props) => {
     const onSubmitForm = (e) => {
         e.preventDefault();
         const msg = isError(repoName,port)
-        if( msg !== false){
+        if( msg !== ''){
             alert(msg);
             return ;
         }
@@ -120,7 +130,6 @@ const AddRepo = (props) => {
 				    </Typography>
                     <TextField
                         id="standard-full-width"
-                        label="Repository name should be unique"
                         placeholder="my-first-repo"
                         value={repoName}
                         onChange={(e) => {
@@ -132,6 +141,8 @@ const AddRepo = (props) => {
                         InputLabelProps={{
                             shrink: true,
                         }}
+                        error = {isRepoNameError() !== '' ? true : false}
+                        helperText= {isRepoNameError()}
                     />
                 </div>
                 <div style={content}>
@@ -140,7 +151,7 @@ const AddRepo = (props) => {
                     </Typography>
                     <TextField
                         id="standard-full-width"
-                        label="KuberKuber only support public image's lates tag"
+                        helperText="KuberKuber only support public image's lates tag"
                         placeholder="DockerHub image to deploy (e.g. demo/image)"
                         value={dockerImage}
                         onChange={(e) => {
@@ -166,7 +177,8 @@ const AddRepo = (props) => {
                             setPort(e.target.value)
                             }
                         }
-                        helperText="Port number for access to container"
+                        error = {isPortError() !== '' ? true : false}
+                        helperText={isPortError()}
                         fullWidth
                         margin="normal"
                         InputLabelProps={{
