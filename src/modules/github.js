@@ -1,6 +1,6 @@
 const { default: Axios } = require("axios");
 
-async function search(searchString) {
+async function searchRepository(searchString) {
     if(typeof searchString !== 'string') {
         return null;
     }
@@ -19,7 +19,7 @@ async function getBranches(owner, reponame) {
     return await Axios.get(`https://api.github.com/repos/${owner}/${reponame}/branches`);
 }
 module.exports = {
-    search: search,
+    searchRepository: searchRepository,
     getRepository: getRepository,
     getBranches: getBranches
 }

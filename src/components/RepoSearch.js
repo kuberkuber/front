@@ -1,5 +1,9 @@
 import Github from "../modules/github";
 import React from 'react';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import Typography from '@material-ui/core/Typography';
+import CheckOutlinedIcon from '@material-ui/icons/CheckOutlined';
 export class RepoSearch extends React.Component {
     constructor(props) {
         super();
@@ -10,7 +14,7 @@ export class RepoSearch extends React.Component {
         this.search(props.searchString);
     }
     async search(searchString) {
-        const searchDatas = await Github.search(searchString);
+        const searchDatas = await Github.searchRepository(searchString);
         if(!searchDatas) {
             return;
         }
@@ -35,11 +39,16 @@ export class RepoSearch extends React.Component {
                 {
                     this.state.searchItems.map((item, index) => {
                         return (
-                            <div key = {index} onClick = {() =>{ 
-                                this.props.onSelect(item.owner, item.reponame);
-                            }}>
-                                <p> id: {item.id} ,RepositoryName: {item.reponame}, owner: {item.owner} </p>
-                            </div>
+                            <ExpansionPanel key = {index} onClick = {() => {this.props.onSelect(item.owner, item.reponame);}}>
+                                <ExpansionPanelSummary
+                                expandIcon={<CheckOutlinedIcon />}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header">
+                                    <Typography variant="h6">
+                                        {item.reponame}/{item.owner}
+                                    </Typography>
+                                </ExpansionPanelSummary>
+                            </ExpansionPanel>
                         );
                     })
                 }
