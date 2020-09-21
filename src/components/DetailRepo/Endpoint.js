@@ -1,5 +1,5 @@
 import React from 'react';
-import API from 'components/API';
+import API from 'components/DetailRepo/API';
 
 const Endpoint = ({endpoint, apiDoc}) => {
 	return (

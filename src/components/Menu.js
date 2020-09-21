@@ -1,13 +1,9 @@
 import React from 'react';
-import {
-	// NavLink,
-	Link
-} from 'react-router-dom';
-import { AppBar, Toolbar, Typography, IconButton, Button, Grid } from '@material-ui/core';
+import { Link, withRouter, Route } from 'react-router-dom';
+import { AppBar, Toolbar, Typography, IconButton, Grid } from '@material-ui/core';
 import CloudQueueIcon from '@material-ui/icons/CloudQueue';
 import GitHubIcon from '@material-ui/icons/GitHub';
-import axios from 'axios';
-import { Login } from '../pages';
+import Login from '../pages/Login';
 
 const toolbar = {
 	marginLeft: "25%",
@@ -37,11 +33,8 @@ const Menu = () => {
 						</IconButton>
 					</Grid>
 					<Grid item xs={6}>
-						<IconButton onClick={Login}> 
-							
-							{/* <Link to={`/login`}> */}
+						<IconButton onClick={Login}>
 							<GitHubIcon style={gitBtn} fontSize="large" />
-							{/* </Link> */}
 						</IconButton>
 						{/* <IconButton onClick={()=> window.open("/login", 'new', 'scrollbars=no,resizable=no,width=570,height=350,left=100,top=150')}>
 						<GitHubIcon style={gitBtn} fontSize="large"/>
@@ -53,4 +46,4 @@ const Menu = () => {
 	);
 };
 
-export default Menu;
+export default withRouter(Menu);
