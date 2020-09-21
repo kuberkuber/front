@@ -5,7 +5,7 @@ import {
     Chip,
 } from '@material-ui/core';
 import LinkIcon from '@material-ui/icons/Link';
-import Endpoint from 'components/DetailRepo/Endpoint';
+import Endpoint from 'components/Endpoint';
 
 const title = {
     "marginTop": "60px",

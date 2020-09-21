@@ -4,7 +4,7 @@ import { Button, Typography, TextField } from '@material-ui/core';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import YAML from 'yamljs';
-import MyDropzone from 'components/AddRepo/MyDropZone';
+import MyDropzone from 'components/MyDropZone';
 
 const title = {
     "marginTop": "60px",
@@ -25,14 +25,27 @@ const AddRepo = (props) => {
 
     const dispatch = useDispatch();
 
+    const isLowerAlpha = (c) => {
+        if (c >= 'a' && c <= 'z')
+            return true;
+        return false;
+    }
+
     const isError = (pname,pport) => {
         const repoError = "repository name must consist of lower case alphanumeric characters or '-', and must start and end with an alphanumeric character";
         const uniqueError = "repository name should be unique"
         const portError = "port number should be number"
         //repo name 체크
-        const re = new RegExp("[a-z\-]+");
-        if (!pname.match(re)) {
+        const len = pname.length;
+        if ( len === 0 ||
+            (isNaN(pname[0]) && !isLowerAlpha(pname[0])) ||
+            (isNaN(pname[len - 1]) && !isLowerAlpha(pname[len - 1])))
             return repoError;
+        else {
+            for(const c of pname){
+                if(!isLowerAlpha(c) && isNaN(c) && c !== '-' )
+                    return repoError;
+            }
         }
         //중복체크
         for(const idx in data){
@@ -45,7 +58,7 @@ const AddRepo = (props) => {
         return false;
     }
     const asyncFunc = (formData,res) => {
-        console.log("res",formData, res);
+        console.log(formData, res);
         dispatch({
             type: 'ACTIVEDATA',
             name: formData.repoName,
@@ -67,8 +80,8 @@ const AddRepo = (props) => {
     const request = async (formData) => {
         try {
             console.log(formData.apiDoc);
-            //const response = await axios.post("http://8bb8d2572824.ngrok.io/deploy",formData);
-             const response = await axios.post("http://8bb8d2572824.ngrok.io/deploy",formData);
+            //const response = await axios.post("http://59b0f175ead6.ngrok.io/deploy",formData);
+             const response = await axios.post("http://59b0f175ead6.ngrok.io/deploy",formData);
             await asyncFunc(formData,response);
             swaggerInfo = null;
         }
