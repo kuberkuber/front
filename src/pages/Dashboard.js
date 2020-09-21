@@ -7,6 +7,7 @@ import { AddRepo, DetailRepo, Setpage, Login } from '.';
 import RepoTable from 'components/RepoTable';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
+import { ImageFinder } from '../components/ImageFinder';
 
 const button = {
     textDecoration: 'none',
@@ -54,6 +55,9 @@ const Dashboard = () => {
                 </Route>
                 <Route path={`/repo/`}>
                     <DetailRepo />
+                </Route>
+                <Route path={`/searchdemo/`}>
+                    <ImageFinder></ImageFinder>
                 </Route>
                 <Route exact path={`/`}>
                     <h1 style={{ 'textAlign': 'center' }}>

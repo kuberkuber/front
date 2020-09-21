@@ -11,6 +11,9 @@ export class RepoSearch extends React.Component {
     }
     async search(searchString) {
         const searchDatas = await Github.search(searchString);
+        if(!searchDatas) {
+            return;
+        }
         const searchItems = [];
         for(const item of searchDatas.data.items) {
             let miniItem = {

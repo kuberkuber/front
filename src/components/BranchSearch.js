@@ -11,6 +11,9 @@ export class BranchSearch extends React.Component {
     }
     async search(owner, reponame) {
         const branchesDatas = await Github.getBranches(owner, reponame);
+        if(!branchesDatas) {
+            return;
+        }
         this.setState((state, props) => {
             state.branches = [];
             for(const data of branchesDatas.data) {
