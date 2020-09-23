@@ -55,6 +55,7 @@ const Dashboard = (props) => {
                 <Route path="/user" component={Login} />
                     {/* {console.log(window.location)} */}
                 <Route path={`/repo/`} component={DetailRepo} />
+                <Route path={`/search`} component={ImageFinder}/>
                 <Route path="/">
                     {console.log("Here")}
                     {sessionStorage.getItem('namespace') ?
