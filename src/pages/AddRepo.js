@@ -31,12 +31,12 @@ const AddRepo = (props) => {
         const re = new RegExp('^[a-z]([-a-z0-9]*[a-z0-9])?$');
         if (repoName.length > 0 && !repoName.match(re))
             return repoError;
-        else {
-            for(const c of pname){
-                if(!isLowerAlpha(c) && isNaN(c) && c !== '-' )
-                    return repoError;
-            }
-        }
+        // else {
+        //     for(const c of pname){
+        //         if(!isLowerAlpha(c) && isNaN(c) && c !== '-' )
+        //             return repoError;
+        //     }
+        // }
         for(const idx in data){
             if(data[idx].name === repoName)
             return uniqueError;
@@ -85,7 +85,7 @@ const AddRepo = (props) => {
     const request = async (formData) => {
         try {
             console.log(formData.apiDoc);
-             const response = await axios.post("http://df6c49165a65.ngrok.io/deploy",
+             const response = await axios.post("http://9c8f7dfa708c.ngrok.io/deploy",
              formData,
              {
                 headers: {

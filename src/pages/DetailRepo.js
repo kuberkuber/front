@@ -8,7 +8,7 @@ import MyDropzone from '../components/MyDropZone';
 import { useLocation } from 'react-router-dom';
 import { Typography, Chip } from '@material-ui/core';
 import LinkIcon from '@material-ui/icons/Link';
-import Endpoint from 'components/DetailRepo/Endpoint';
+import Endpoint from 'components/Endpoint';
 import YAML from 'yamljs';
 
 const content = {

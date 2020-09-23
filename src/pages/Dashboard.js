@@ -3,7 +3,7 @@ import { Link, Switch, Route } from 'react-router-dom';
 import {
     Button
 } from '@material-ui/core';
-import { AddRepo, DetailRepo, Setpage, Login } from '.';
+import { AddRepo, DetailRepo, Setpage, Login, LandingPage } from '.';
 import RepoTable from 'components/RepoTable';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
@@ -19,7 +19,7 @@ const Dashboard = (props) => {
     const repos = useSelector(state => state.kuberData.repos);
     const request = async () => {
         try {
-            const response = await axios.get("http://df6c49165a65.ngrok.io/", {
+            const response = await axios.get("http://9c8f7dfa708c.ngrok.io/", {
                 headers: {
                     'Authorization' : 'Bearer ' + sessionStorage.getItem('jwt')
                 },

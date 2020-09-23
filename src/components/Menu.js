@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-	// NavLink,
-	Link
-} from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, IconButton, Button, Grid } from '@material-ui/core';
 import CloudQueueIcon from '@material-ui/icons/CloudQueue';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -27,7 +24,7 @@ const Menu = (props) => {
 		// console.log("login")
 		try {
 			// const response = await axios.get("http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/login");
-			const response = await axios.get("http://df6c49165a65.ngrok.io/login");
+			const response = await axios.get("http://9c8f7dfa708c.ngrok.io/login");
 			window.location.href = response.data;
 		} catch (err){
 			sessionStorage.clear()
@@ -73,4 +70,4 @@ const Menu = (props) => {
 	);
 };
 
-export default Menu;
+export default withRouter(Menu);

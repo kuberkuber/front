@@ -73,7 +73,7 @@ const Setpage = (props) => {
     const request = async (formData) => { // reDeploy
         try {
 //            const response = await axios.post("ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/deploy",formData);
-            const response = await axios.post("http://df6c49165a65.ngrok.io/test/repo/"+row.name+"/redeploy",
+            const response = await axios.post("http://9c8f7dfa708c.ngrok.io/test/repo/"+row.name+"/redeploy",
             formData,
             {
                 headers: {
@@ -88,8 +88,8 @@ const Setpage = (props) => {
 
     const update = async (formData) => { // port Update
         try {
-//            const response = await axios.post("http://df6c49165a65.ngrok.io/",formData);
-            const response = await axios.patch("http://df6c49165a65.ngrok.io/test/repo/"+row.name,
+//            const response = await axios.post("http://9c8f7dfa708c.ngrok.io/",formData);
+            const response = await axios.patch("http://9c8f7dfa708c.ngrok.io/test/repo/"+row.name,
             formData,
             {
                 headers: {
@@ -105,8 +105,8 @@ const Setpage = (props) => {
     }
     const remove = async (formData) => { // Delete repository
         try {
-//            const response = await axios.post("http://df6c49165a65.ngrok.io/",formData);
-            const response = await axios.delete("http://df6c49165a65.ngrok.io/test/repo/"+row.name,
+//            const response = await axios.post("http://9c8f7dfa708c.ngrok.io/",formData);
+            const response = await axios.delete("http://9c8f7dfa708c.ngrok.io/test/repo/"+row.name,
             formData,
             {
                 headers: {
