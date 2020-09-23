@@ -1,11 +1,10 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, IconButton, Button, Grid } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, IconButton, Grid } from '@material-ui/core';
 import CloudQueueIcon from '@material-ui/icons/CloudQueue';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import axios from 'axios';
-import { Login } from '../pages';
 
 const toolbar = {
 	marginLeft: "25%",
