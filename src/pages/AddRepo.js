@@ -19,27 +19,17 @@ const AddRepo = (props) => {
     const [repoName, setRepoName] = useState('');
     const [dockerImage, setDockerImage] = useState('');
     const [port, setPort] = useState('');
-    const kuberData = useSelector(state => state.kuberData);
-    const data = kuberData.repos;
-    let swaggerInfo = null;
-
+    const data = useSelector(state => state.kuberData.respos);
+    // const namespace = useSelector(state => state.kuberData.user.namespace);
     const dispatch = useDispatch();
 
-    const isLowerAlpha = (c) => {
-        if (c >= 'a' && c <= 'z')
-            return true;
-        return false;
-    }
+    let swaggerInfo = null;
 
-    const isError = (pname,pport) => {
+    const isRepoNameError = () => {
         const repoError = "repository name must consist of lower case alphanumeric characters or '-', and must start and end with an alphanumeric character";
         const uniqueError = "repository name should be unique"
-        const portError = "port number should be number"
-        //repo name 체크
-        const len = pname.length;
-        if ( len === 0 ||
-            (isNaN(pname[0]) && !isLowerAlpha(pname[0])) ||
-            (isNaN(pname[len - 1]) && !isLowerAlpha(pname[len - 1])))
+        const re = new RegExp('^[a-z]([-a-z0-9]*[a-z0-9])?$');
+        if (repoName.length > 0 && !repoName.match(re))
             return repoError;
         else {
             for(const c of pname){
@@ -47,16 +37,30 @@ const AddRepo = (props) => {
                     return repoError;
             }
         }
-        //중복체크
         for(const idx in data){
-            if(data[idx].name === pname)
-                return uniqueError;
+            if(data[idx].name === repoName)
+            return uniqueError;
         }
-        //port
-        if(isNaN(pport))
-            return portError;
-        return false;
+        return '';
     }
+
+    const isPortError = () => {
+        const portError = "port number should be number"
+        if (isNaN(port))
+            return portError;
+        return '';
+    }
+
+    const isError = (repoName, port) => {
+        let errMsg = isRepoNameError(repoName);
+        if (errMsg !== '')
+            return errMsg;
+        errMsg = isPortError(port);
+        if (errMsg !== '')
+            return errMsg;
+        return ''
+    }
+
     const asyncFunc = (formData,res) => {
         console.log(formData, res);
         dispatch({
@@ -67,8 +71,8 @@ const AddRepo = (props) => {
             apiDoc: formData.apiDoc
         });
     }
-    const goMainPage = (formData) => {
 
+    const goMainPage = (formData) => {
         dispatch({
             type: 'INSERTDATA',
             data: { name: formData.repoName, deployTime: "",status: "Deploying..." }
@@ -77,27 +81,34 @@ const AddRepo = (props) => {
             pathname: '/',
         });
     }
+
     const request = async (formData) => {
         try {
             console.log(formData.apiDoc);
-            //const response = await axios.post("http://59b0f175ead6.ngrok.io/deploy",formData);
-             const response = await axios.post("http://59b0f175ead6.ngrok.io/deploy",formData);
+             const response = await axios.post("http://df6c49165a65.ngrok.io/deploy",
+             formData,
+             {
+                headers: {
+                    'Authorization' : 'Bearer ' + sessionStorage.getItem('jwt')
+            }});
             await asyncFunc(formData,response);
             swaggerInfo = null;
+            return response.response;
         }
         catch (error) {
-            console.log(error);
+            console.log(error.response);
+            return error.response;
         }
     }
     const onSubmitForm = (e) => {
         e.preventDefault();
         const msg = isError(repoName,port)
-        if( msg !== false){
+        if( msg !== ''){
             alert(msg);
             return ;
         }
         const formData = {
-            namespace : "test",
+            namespace : sessionStorage.getItem('namespace'),
             repoName : repoName,
             imageName: dockerImage,
             portNum : port,
@@ -106,8 +117,8 @@ const AddRepo = (props) => {
         request(formData);
         goMainPage(formData);
     };
-    const swaggerRead = (e) => {
 
+    const swaggerRead = (e) => {
         let file = e.target.files[0];
         let fileReader = new FileReader();
         if (file !== undefined) {
@@ -117,28 +128,25 @@ const AddRepo = (props) => {
             fileReader.readAsText(file);
         }
     }
-
+    console.log(sessionStorage.getItem('jwt'))
     return (
         <form onSubmit={onSubmitForm}>
-
             <div>
                 <div style={title}>
                     <Typography variant="h4" gutterBottom>
                         Register new repository
-				</Typography>
+				    </Typography>
                 </div>
                 <div style={content}>
                     <Typography variant="h6" gutterBottom>
                         Repository name
-				</Typography>
+				    </Typography>
                     <TextField
                         id="standard-full-width"
-                        label="Repository name should be unique"
                         placeholder="my-first-repo"
                         value={repoName}
-                        onChange={
-                            (e) => {
-                                setRepoName(e.target.value)
+                        onChange={(e) => {
+                            setRepoName(e.target.value)
                             }
                         }
                         fullWidth
@@ -146,20 +154,21 @@ const AddRepo = (props) => {
                         InputLabelProps={{
                             shrink: true,
                         }}
+                        error = {isRepoNameError() !== '' ? true : false}
+                        helperText= {isRepoNameError()}
                     />
                 </div>
                 <div style={content}>
                     <Typography variant="h6" gutterBottom>
                         Docker Image
-				</Typography>
+                    </Typography>
                     <TextField
                         id="standard-full-width"
-                        label="KuberKuber only support public image's lates tag"
+                        helperText="KuberKuber only support public image's lates tag"
                         placeholder="DockerHub image to deploy (e.g. demo/image)"
                         value={dockerImage}
-                        onChange={
-                            (e) => {
-                                setDockerImage(e.target.value)
+                        onChange={(e) => {
+                            setDockerImage(e.target.value)
                             }
                         }
                         fullWidth
@@ -172,17 +181,17 @@ const AddRepo = (props) => {
                 <div style={content}>
                     <Typography variant="h6" style={{ "textAlign": "left" }} gutterBottom>
                         Port
-				</Typography>
+                    </Typography>
                     <TextField
                         id="standard-full-width"
                         placeholder="80"
                         value={port}
-                        onChange={
-                            (e) => {
-                                setPort(e.target.value)
+                        onChange={(e) => {
+                            setPort(e.target.value)
                             }
                         }
-                        helperText="Port number for access to container"
+                        error = {isPortError() !== '' ? true : false}
+                        helperText={isPortError()}
                         fullWidth
                         margin="normal"
                         InputLabelProps={{
@@ -193,7 +202,7 @@ const AddRepo = (props) => {
                 <div style={content}>
                     <Typography variant="h6" style={{ "textAlign": "left" }} gutterBottom>
                         API document
-				</Typography>
+                    </Typography>
                     <MyDropzone swaggerRead={swaggerRead} />
                 </div>
                 <br/>
@@ -206,6 +215,5 @@ const AddRepo = (props) => {
         </form>
     );
 }
-
 
 export default withRouter(AddRepo);

@@ -48,7 +48,6 @@ function kuberData(state = initialState, action) {
         }
         case CHANGEDATA:{
             let idx = (state.repos).findIndex(repo=>(repo.name===action.name));
-
             state.repos[idx].deployTime = action.data;
             return {
                 ...state,

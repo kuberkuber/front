@@ -9,7 +9,8 @@ const whitebox = {
     "borderRadius": "3px",
     "width": "90%",
     "display": "inline-block"
-}
+};
+
 const box = {
     "flex": "1",
     "display": "flex",
@@ -24,10 +25,12 @@ const box = {
     "color": "#bdbdbd",
     "outline": "none",
     "transition": "border .24s ease-in-out"
-}
+};
+
 const activeStyle = {
     borderColor: '#ff1744'
 }
+
 const MyDropzone = ({ swaggerRead }) => {
     const onDrop = (acceptedFiles) => {
         swaggerRead({target: {files: acceptedFiles}});
