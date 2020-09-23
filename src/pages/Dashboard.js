@@ -1,41 +1,27 @@
 import React, { useEffect } from 'react';
 import { Link, Switch, Route } from 'react-router-dom';
-import {
-    Button
-} from '@material-ui/core';
-import { AddRepo, DetailRepo, Setpage } from './';
-import RepoTable from 'components/RepoTable';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
+import { Button } from '@material-ui/core';
+import { AddRepo, DetailRepo, Setpage, LandingPage, Login } from './';
+import RepoTable from 'components/RepoTable';
 
 const button = {
     textDecoration: 'none',
     float: 'right',
 };
 
-const Dashboard = () => {
+const Dashboard = (props) => {
     const dispatch = useDispatch();
-    const kuberData = useSelector(state => state.kuberData);
-    let namespace = kuberData.user.namespace;
-    const data = kuberData.repos;
-
+    const repos = useSelector(state => state.kuberData.repos);
     const request = async () => {
         try {
-            if (namespace === '') {
-                const params = new URLSearchParams(window.location.search);
-                namespace = params.get('namespace');
-                if (namespace !== '') {
-                    dispatch({
-                        type:'LOGIN',
-                        namespace: namespace,
-                        userToken: ''
-                    });
-                }
-            }
-            console.log("namespace", namespace);
-            const response = await axios.get("http://8bb8d2572824.ngrok.io/", {
+            const response = await axios.get("http://df6c49165a65.ngrok.io/", {
+                headers: {
+                    'Authorization' : 'Bearer ' + sessionStorage.getItem('jwt')
+                },
                 params: {
-                    namespace: namespace
+                    namespace: sessionStorage.getItem('namespace')
                 }
             });
             dispatch({
@@ -45,46 +31,49 @@ const Dashboard = () => {
             return response.data;
         }
         catch (error) {
-            console.log(error);
+            sessionStorage.clear()
+            console.log(error)
+            props.history.push({
+                path: '/'
+            })
         }
     };
 
     useEffect(() => {
-        request();
-    }, []);
-
+        if (sessionStorage.getItem('jwt') !== null)
+            request();
+    }, [sessionStorage.getItem('namespace')]);
     return (
         <div>
             <Switch>
                 {/* Route에 setting page 경로 추가 */}
-                <Route path={`/setting/`}>
-                    <Setpage />
-                </Route>
-                {/* {<Route path={`/login`}>
-                    <Login/>
-                </Route>} */}
-                <Route path={`/add`}>
-                    <AddRepo />
-                </Route>
-                <Route path={`/repo/`}>
-                    <DetailRepo />
-                </Route>
-                <Route exact path={`/`}>
-                    <h1 style={{ 'textAlign': 'center' }}>
-                        Dashboard
-                    </h1>
-                    <Link to={`/add`} style={button}>
-                        <Button variant="outlined" color="primary">
-                            Register new repository
-						</Button>
-                    </Link>
-                    <RepoTable data={data} />
-                    <br />
+                <Route path={`/setting/`} component={Setpage} />
+                <Route path={`/add`} component={AddRepo} />
+                <Route path="/user" component={Login} />
+                    {/* {console.log(window.location)} */}
+                <Route path={`/repo/`} component={DetailRepo} />
+                <Route path="/">
+                    {console.log("Here")}
+                    {sessionStorage.getItem('namespace') ?
+                        <div>
+                            <h1 style={{ 'textAlign': 'center' }}>
+                                Dashboard
+                            </h1>
+                            <Link to={`/add`} style={button}>
+                                <Button variant="outlined" color="primary">
+                                    Register new repository
+                                </Button>
+                            </Link>
+                            {/* <RepoTable data={data} /> */}
+                            <RepoTable data={repos} />
+                            <br />
+                        </div>
+                    : <LandingPage />
+                    }
                 </Route>
             </Switch>
         </div>
     );
 }
-
 
 export default Dashboard;

@@ -19,10 +19,11 @@ const AddRepo = (props) => {
     const [repoName, setRepoName] = useState('');
     const [dockerImage, setDockerImage] = useState('');
     const [port, setPort] = useState('');
-    const kuberData = useSelector(state => state.kuberData);
-    const data = kuberData.repos;
-    let swaggerInfo = null;
+    const data = useSelector(state => state.kuberData.respos);
+    // const namespace = useSelector(state => state.kuberData.user.namespace);
     const dispatch = useDispatch();
+
+    let swaggerInfo = null;
 
     const isRepoNameError = () => {
         const repoError = "repository name must consist of lower case alphanumeric characters or '-', and must start and end with an alphanumeric character";
@@ -79,12 +80,19 @@ const AddRepo = (props) => {
     const request = async (formData) => {
         try {
             console.log(formData.apiDoc);
-             const response = await axios.post("http://363750994707.ngrok.io/deploy",formData);
+             const response = await axios.post("http://df6c49165a65.ngrok.io/deploy",
+             formData,
+             {
+                headers: {
+                    'Authorization' : 'Bearer ' + sessionStorage.getItem('jwt')
+            }});
             await asyncFunc(formData,response);
             swaggerInfo = null;
+            return response.response;
         }
         catch (error) {
-            console.log(error);
+            console.log(error.response);
+            return error.response;
         }
     }
     const onSubmitForm = (e) => {
@@ -95,7 +103,7 @@ const AddRepo = (props) => {
             return ;
         }
         const formData = {
-            namespace : "test",
+            namespace : sessionStorage.getItem('namespace'),
             repoName : repoName,
             imageName: dockerImage,
             portNum : port,
@@ -115,7 +123,7 @@ const AddRepo = (props) => {
             fileReader.readAsText(file);
         }
     }
-
+    console.log(sessionStorage.getItem('jwt'))
     return (
         <form onSubmit={onSubmitForm}>
             <div>

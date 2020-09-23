@@ -3,6 +3,7 @@ import { useLocation, withRouter } from 'react-router-dom';
 import { Button, Typography, TextField } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+
 const title = {
     "marginTop": "60px",
     "marginBottom": "50px",
@@ -18,9 +19,7 @@ const labelStyle = {
 
 const Setpage = (props) => {
     const dispatch = useDispatch();
-    const kuberData = useSelector(state => state.kuberData);
-    const data = kuberData.repos;
-
+    const data = useSelector(state => state.kuberData.repos);
     const location = useLocation();
     const row = location.state.row;
 
@@ -35,7 +34,6 @@ const Setpage = (props) => {
     }
 //    console.log(row);
     const [port, setPort] = useState('');
-
 
     const isError = (pport) => {
         const portError = "port number should be number"
@@ -74,8 +72,13 @@ const Setpage = (props) => {
     }
     const request = async (formData) => { // reDeploy
         try {
-//            const response = await axios.post("http://59b0f175ead6.ngrok.io/deploy",formData);
-            const response = await axios.post("http://59b0f175ead6.ngrok.io/test/repo/"+row.name+"/redeploy",formData);
+//            const response = await axios.post("ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/deploy",formData);
+            const response = await axios.post("http://df6c49165a65.ngrok.io/test/repo/"+row.name+"/redeploy",
+            formData,
+            {
+                headers: {
+                    'Authorization' : 'Bearer ' + sessionStorage.getItem('jwt')
+            }});
             await asyncFunc(formData,response);
         }
         catch (error) {
@@ -85,8 +88,13 @@ const Setpage = (props) => {
 
     const update = async (formData) => { // port Update
         try {
-//            const response = await axios.post("http://59b0f175ead6.ngrok.io/",formData);
-            const response = await axios.patch("http://59b0f175ead6.ngrok.io/test/repo/"+row.name,formData);
+//            const response = await axios.post("http://df6c49165a65.ngrok.io/",formData);
+            const response = await axios.patch("http://df6c49165a65.ngrok.io/test/repo/"+row.name,
+            formData,
+            {
+                headers: {
+                    'Authorization' : 'Bearer ' + sessionStorage.getItem('jwt')
+            }});
             await asyncPortFunc(formData,response);
 
             alert("port 변경!");
@@ -97,8 +105,13 @@ const Setpage = (props) => {
     }
     const remove = async (formData) => { // Delete repository
         try {
-//            const response = await axios.post("http://59b0f175ead6.ngrok.io/",formData);
-            const response = await axios.delete("http://59b0f175ead6.ngrok.io/test/repo/"+row.name,formData);
+//            const response = await axios.post("http://df6c49165a65.ngrok.io/",formData);
+            const response = await axios.delete("http://df6c49165a65.ngrok.io/test/repo/"+row.name,
+            formData,
+            {
+                headers: {
+                    'Authorization' : 'Bearer ' + sessionStorage.getItem('jwt')
+            }});
             await asyncDelFunc(formData);
             await goMainPage();
         }
