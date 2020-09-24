@@ -12,6 +12,7 @@ const title = {
 const content = {
     "marginBottom": "50px"
 };
+
 const labelStyle = {
     "fontWeight": "500",
     "paddingRight" : "50px"
@@ -42,7 +43,6 @@ const Setpage = (props) => {
         return false;
     }
     const asyncPortFunc = (formData) => { //action type : UPDATEDATA 일 경우,
-
         dispatch({
             type: 'CHANGEPORT',
             name: formData.repoName,
@@ -72,8 +72,8 @@ const Setpage = (props) => {
     }
     const request = async (formData) => { // reDeploy
         try {
-//            const response = await axios.post("ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/deploy",formData);
-            const response = await axios.post("http://b4662ae0a162.ngrok.io/test/repo/"+row.name+"/redeploy",
+            const requestUrl = "http://c86b6af13434.ngrok.io/" + localStorage.getItem('namespace') + "/repo/" + row.name;
+            const response = await axios.post(requestUrl + "/redeploy",
             formData,
             {
                 headers: {
@@ -88,15 +88,13 @@ const Setpage = (props) => {
 
     const update = async (formData) => { // port Update
         try {
-//            const response = await axios.post("http://b4662ae0a162.ngrok.io/",formData);
-            const response = await axios.patch("http://b4662ae0a162.ngrok.io/test/repo/"+row.name,
-            formData,
+            const requestUrl = "http://c86b6af13434.ngrok.io/" + localStorage.getItem('namespace') + "/repo/" + row.name;
+            const response = await axios.patch(requestUrl, formData,
             {
                 headers: {
                     'Authorization' : 'Bearer ' + localStorage.getItem('jwt')
             }});
             await asyncPortFunc(formData,response);
-
             alert("port 변경!");
         }
         catch (error) {
@@ -104,14 +102,19 @@ const Setpage = (props) => {
         }
     }
     const remove = async (formData) => { // Delete repository
+        console.log("jwt", localStorage.getItem('jwt'))
+        console.log(formData)
         try {
-//            const response = await axios.post("http://b4662ae0a162.ngrok.io/",formData);
-            const response = await axios.delete("http://b4662ae0a162.ngrok.io/test/repo/"+row.name,
-            formData,
+            const requestUrl = "http://c86b6af13434.ngrok.io/" + localStorage.getItem('namespace') + "/repo/" + row.name;
+            const response = await axios.delete(requestUrl,
             {
                 headers: {
                     'Authorization' : 'Bearer ' + localStorage.getItem('jwt')
-            }});
+                },
+                data: {
+                    formData: formData
+                }
+            });
             await asyncDelFunc(formData);
             await goMainPage();
         }
