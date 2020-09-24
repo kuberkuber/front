@@ -19,12 +19,12 @@ const Dashboard = (props) => {
     const repos = useSelector(state => state.kuberData.repos);
     const request = async () => {
         try {
-            const response = await axios.get("http://9c8f7dfa708c.ngrok.io/", {
+            const response = await axios.get("http://b4662ae0a162.ngrok.io/", {
                 headers: {
-                    'Authorization' : 'Bearer ' + sessionStorage.getItem('jwt')
+                    'Authorization' : 'Bearer ' + localStorage.getItem('jwt')
                 },
                 params: {
-                    namespace: sessionStorage.getItem('namespace')
+                    namespace: localStorage.getItem('namespace')
                 }
             });
             await dispatch({
@@ -34,7 +34,7 @@ const Dashboard = (props) => {
             return response.data;
         }
         catch (error) {
-            sessionStorage.clear()
+            localStorage.clear()
             console.log(error)
             props.history.push({
                 path: '/'
@@ -43,9 +43,9 @@ const Dashboard = (props) => {
     };
 
     useEffect(() => {
-        if (sessionStorage.getItem('jwt') !== null)
+        if (localStorage.getItem('jwt') !== null)
             request();
-    }, [sessionStorage.getItem('namespace')]);
+    }, [localStorage.getItem('namespace')]);
     return (
         <div>
             <Switch>
@@ -58,7 +58,7 @@ const Dashboard = (props) => {
                 <Route path={`/search`} component={ImageFinder}/>
                 <Route path="/">
                     {console.log("Here")}
-                    {sessionStorage.getItem('namespace') ?
+                    {localStorage.getItem('namespace') ?
                         <div>
                             <h1 style={{ 'textAlign': 'center' }}>
                                 Dashboard

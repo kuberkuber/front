@@ -73,11 +73,11 @@ const Setpage = (props) => {
     const request = async (formData) => { // reDeploy
         try {
 //            const response = await axios.post("ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/deploy",formData);
-            const response = await axios.post("http://9c8f7dfa708c.ngrok.io/test/repo/"+row.name+"/redeploy",
+            const response = await axios.post("http://b4662ae0a162.ngrok.io/test/repo/"+row.name+"/redeploy",
             formData,
             {
                 headers: {
-                    'Authorization' : 'Bearer ' + sessionStorage.getItem('jwt')
+                    'Authorization' : 'Bearer ' + localStorage.getItem('jwt')
             }});
             await asyncFunc(formData,response);
         }
@@ -88,12 +88,12 @@ const Setpage = (props) => {
 
     const update = async (formData) => { // port Update
         try {
-//            const response = await axios.post("http://9c8f7dfa708c.ngrok.io/",formData);
-            const response = await axios.patch("http://9c8f7dfa708c.ngrok.io/test/repo/"+row.name,
+//            const response = await axios.post("http://b4662ae0a162.ngrok.io/",formData);
+            const response = await axios.patch("http://b4662ae0a162.ngrok.io/test/repo/"+row.name,
             formData,
             {
                 headers: {
-                    'Authorization' : 'Bearer ' + sessionStorage.getItem('jwt')
+                    'Authorization' : 'Bearer ' + localStorage.getItem('jwt')
             }});
             await asyncPortFunc(formData,response);
 
@@ -105,12 +105,12 @@ const Setpage = (props) => {
     }
     const remove = async (formData) => { // Delete repository
         try {
-//            const response = await axios.post("http://9c8f7dfa708c.ngrok.io/",formData);
-            const response = await axios.delete("http://9c8f7dfa708c.ngrok.io/test/repo/"+row.name,
+//            const response = await axios.post("http://b4662ae0a162.ngrok.io/",formData);
+            const response = await axios.delete("http://b4662ae0a162.ngrok.io/test/repo/"+row.name,
             formData,
             {
                 headers: {
-                    'Authorization' : 'Bearer ' + sessionStorage.getItem('jwt')
+                    'Authorization' : 'Bearer ' + localStorage.getItem('jwt')
             }});
             await asyncDelFunc(formData);
             await goMainPage();
