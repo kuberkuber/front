@@ -2,8 +2,9 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, IconButton, Grid } from '@material-ui/core';
 import CloudQueueIcon from '@material-ui/icons/CloudQueue';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+// import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import GitHubIcon from '@material-ui/icons/GitHub';
+import Button from '@material-ui/core/Button';
 import axios from 'axios';
 
 const toolbar = {
@@ -20,10 +21,9 @@ const gitBtn = {
 
 const Menu = (props) => {
 	const handleLogin =  async () => {
-		// console.log("login")
 		try {
 			// const response = await axios.get("http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/login");
-			const response = await axios.get("http://b4662ae0a162.ngrok.io/login");
+			const response = await axios.get("http://c86b6af13434.ngrok.io/login");
 			window.location.href = response.data;
 		} catch (err){
 			localStorage.clear()
@@ -33,6 +33,12 @@ const Menu = (props) => {
 			console.log(err)
 		}
 	};
+	const handleLogout = () => {
+		localStorage.clear()
+		props.history.push({
+			path: '/'
+		})
+	}
 
 	return (
 		<div>
@@ -56,7 +62,9 @@ const Menu = (props) => {
 							:
 							<Typography style={name}>
 								{localStorage.getItem('namespace')}
-								<ExitToAppIcon/>
+								<Button onClick={handleLogout} size="small" variant="outlined" color="inherit">
+									LogOut
+								</Button>
 							</Typography>
 						}
 						{/* <IconButton onClick={()=> window.open("/login", 'new', 'scrollbars=no,resizable=no,width=570,height=350,left=100,top=150')}>
