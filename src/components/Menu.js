@@ -23,10 +23,10 @@ const Menu = (props) => {
 		// console.log("login")
 		try {
 			// const response = await axios.get("http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/login");
-			const response = await axios.get("http://9c8f7dfa708c.ngrok.io/login");
+			const response = await axios.get("http://b4662ae0a162.ngrok.io/login");
 			window.location.href = response.data;
 		} catch (err){
-			sessionStorage.clear()
+			localStorage.clear()
             props.history.push({
                 path: '/'
             })
@@ -49,13 +49,13 @@ const Menu = (props) => {
 						</IconButton>
 					</Grid>
 					<Grid item xs={6}>
-						{sessionStorage.getItem('namespace') === null ?
+						{localStorage.getItem('namespace') === null ?
 							<IconButton onClick={handleLogin}>
 								<GitHubIcon style={gitBtn} fontSize="large" />
 							</IconButton>
 							:
 							<Typography style={name}>
-								{sessionStorage.getItem('namespace')}
+								{localStorage.getItem('namespace')}
 								<ExitToAppIcon/>
 							</Typography>
 						}

@@ -5,9 +5,9 @@ import axios from 'axios';
 const Login = (props) => {
 	const login = async() => {
 		try {
-			const response = await axios.get("http://9c8f7dfa708c.ngrok.io/user" + window.location.search)
-			sessionStorage.setItem('namespace', response.data.name);
-			sessionStorage.setItem('jwt', response.data.jwt);
+			const response = await axios.get("http://b4662ae0a162.ngrok.io/user" + window.location.search)
+			localStorage.setItem('namespace', response.data.name);
+			localStorage.setItem('jwt', response.data.jwt);
 		} catch (error) {
 			console.log(error);
 		} finally {

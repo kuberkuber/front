@@ -79,11 +79,11 @@ const AddRepo = (props) => {
     const request = async (formData) => {
         try {
             console.log(formData.apiDoc);
-             const response = await axios.post("http://9c8f7dfa708c.ngrok.io/deploy",
+             const response = await axios.post("http://b4662ae0a162.ngrok.io/deploy",
              formData,
              {
                 headers: {
-                    'Authorization' : 'Bearer ' + sessionStorage.getItem('jwt')
+                    'Authorization' : 'Bearer ' + localStorage.getItem('jwt')
             }});
             await asyncFunc(formData,response);
             swaggerInfo = null;
@@ -102,7 +102,7 @@ const AddRepo = (props) => {
             return ;
         }
         const formData = {
-            namespace : sessionStorage.getItem('namespace'),
+            namespace : localStorage.getItem('namespace'),
             repoName : repoName,
             imageName: dockerImage,
             portNum : port,
@@ -122,7 +122,7 @@ const AddRepo = (props) => {
             fileReader.readAsText(file);
         }
     }
-    console.log(sessionStorage.getItem('jwt'))
+    console.log(localStorage.getItem('jwt'))
     return (
         <form onSubmit={onSubmitForm}>
             <div>
