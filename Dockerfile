@@ -10,7 +10,6 @@ COPY . .
 ENV PATH /app/node_modules/.bin:$PATH
 
 ENV NODE_ENV development
-ENV NODE_PATH /app/src
 EXPOSE 3000
 
 CMD ["npm", "start"]
