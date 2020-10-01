@@ -48,9 +48,7 @@ const Setpage = (props) => {
             name: formData.repoName,
             data : formData.portNum
         });
-        console.log(port);
 //        row.port = formData.portNum;
-        console.log(formData.portNum);
     }
     const asyncFunc = (formData,res) => { //action type : UPDATEDATA 일 경우,
         dispatch({
@@ -72,7 +70,8 @@ const Setpage = (props) => {
     }
     const request = async (formData) => { // reDeploy
         try {
-            const requestUrl = "http://c86b6af13434.ngrok.io/" + localStorage.getItem('namespace') + "/repo/" + row.name;
+            const requestUrl = "http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/" + localStorage.getItem('namespace') + "/repo/" + row.name;
+            // const requestUrl = "http://localhost:5000/" + localStorage.getItem('namespace') + "/repo/" + row.name;
             const response = await axios.post(requestUrl + "/redeploy",
             formData,
             {
@@ -88,7 +87,8 @@ const Setpage = (props) => {
 
     const update = async (formData) => { // port Update
         try {
-            const requestUrl = "http://c86b6af13434.ngrok.io/" + localStorage.getItem('namespace') + "/repo/" + row.name;
+            const requestUrl = "http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/" + localStorage.getItem('namespace') + "/repo/" + row.name;
+            // const requestUrl = "http://localhost:5000/" + localStorage.getItem('namespace') + "/repo/" + row.name;
             const response = await axios.patch(requestUrl, formData,
             {
                 headers: {
@@ -102,10 +102,9 @@ const Setpage = (props) => {
         }
     }
     const remove = async (formData) => { // Delete repository
-        console.log("jwt", localStorage.getItem('jwt'))
-        console.log(formData)
         try {
-            const requestUrl = "http://c86b6af13434.ngrok.io/" + localStorage.getItem('namespace') + "/repo/" + row.name;
+            const requestUrl = "http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/" + localStorage.getItem('namespace') + "/repo/" + row.name;
+            // const requestUrl = "http://localhost:5000/" + localStorage.getItem('namespace') + "/repo/" + row.name;
             const response = await axios.delete(requestUrl,
             {
                 headers: {
@@ -133,7 +132,6 @@ const Setpage = (props) => {
             portNum : port
         };
         row.port = formData.portNum;
-        console.log(formData.portNum);
         update(formData);
     }
     const reDeploy = (e) => { // re-deploy 버튼

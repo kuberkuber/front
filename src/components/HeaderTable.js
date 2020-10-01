@@ -11,7 +11,6 @@ import {
 } from '@material-ui/core';
 
 const HeaderTable = ({headers}) => {
-	console.log()
 	return (
 		<TableContainer component={Paper}>
 		<Table aria-label="simple table">
