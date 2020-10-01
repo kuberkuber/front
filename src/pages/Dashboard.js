@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Switch, Route } from 'react-router-dom';
 import {
     Button
@@ -16,10 +16,12 @@ const button = {
 
 const Dashboard = (props) => {
     const dispatch = useDispatch();
+    const [mount, setMount] = useState(false);
     const repos = useSelector(state => state.kuberData.repos);
     const request = async () => {
         try {
-            const response = await axios.get("http://b4662ae0a162.ngrok.io/", {
+            const response = await axios.get("http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/", {
+                // const response = await axios.get("http://localhost:5000/", {
                 headers: {
                     'Authorization' : 'Bearer ' + localStorage.getItem('jwt')
                 },
@@ -35,7 +37,6 @@ const Dashboard = (props) => {
         }
         catch (error) {
             localStorage.clear()
-            console.log(error)
             props.history.push({
                 path: '/'
             })
@@ -43,9 +44,12 @@ const Dashboard = (props) => {
     };
 
     useEffect(() => {
-        if (localStorage.getItem('jwt') !== null)
+        if (!mount && localStorage.getItem('jwt') !== null)
+        {
+            setMount(true);
             request();
-    }, [localStorage.getItem('namespace')]);
+        }
+    }, [mount, request]);
     return (
         <div>
             <Switch>
@@ -53,11 +57,10 @@ const Dashboard = (props) => {
                 <Route path={`/setting/`} component={Setpage} />
                 <Route path={`/add`} component={AddRepo} />
                 <Route path="/user" component={Login} />
-                    {/* {console.log(window.location)} */}
                 <Route path={`/repo/`} component={DetailRepo} />
                 <Route path={`/search`} component={ImageFinder}/>
                 <Route path="/">
-                    {console.log("Here")}
+                    {/* {console.log("Here")} */}
                     {localStorage.getItem('namespace') ?
                         <div>
                             <h1 style={{ 'textAlign': 'center' }}>
