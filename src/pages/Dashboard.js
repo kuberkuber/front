@@ -19,7 +19,7 @@ const Dashboard = (props) => {
     const repos = useSelector(state => state.kuberData.repos);
     const request = async () => {
         try {
-            const response = await axios.get("http://b4662ae0a162.ngrok.io/", {
+            const response = await axios.get("http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com/", {
                 headers: {
                     'Authorization' : 'Bearer ' + localStorage.getItem('jwt')
                 },
@@ -57,7 +57,6 @@ const Dashboard = (props) => {
                 <Route path={`/repo/`} component={DetailRepo} />
                 <Route path={`/search`} component={ImageFinder}/>
                 <Route path="/">
-                    {console.log("Here")}
                     {localStorage.getItem('namespace') ?
                         <div>
                             <h1 style={{ 'textAlign': 'center' }}>

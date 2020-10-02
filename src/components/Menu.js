@@ -23,7 +23,7 @@ const Menu = (props) => {
 	const handleLogin =  async () => {
 		try {
 			// const response = await axios.get("http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/login");
-			const response = await axios.get("http://c86b6af13434.ngrok.io/login");
+			const response = await axios.get("http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com/login");
 			window.location.href = response.data;
 		} catch (err){
 			localStorage.clear()

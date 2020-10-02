@@ -72,7 +72,7 @@ const Setpage = (props) => {
     }
     const request = async (formData) => { // reDeploy
         try {
-            const requestUrl = "http://c86b6af13434.ngrok.io/" + localStorage.getItem('namespace') + "/repo/" + row.name;
+            const requestUrl = "http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com/" + localStorage.getItem('namespace') + "/repo/" + row.name;
             const response = await axios.post(requestUrl + "/redeploy",
             formData,
             {
@@ -88,7 +88,7 @@ const Setpage = (props) => {
 
     const update = async (formData) => { // port Update
         try {
-            const requestUrl = "http://c86b6af13434.ngrok.io/" + localStorage.getItem('namespace') + "/repo/" + row.name;
+            const requestUrl = "http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com/" + localStorage.getItem('namespace') + "/repo/" + row.name;
             const response = await axios.patch(requestUrl, formData,
             {
                 headers: {
@@ -102,10 +102,8 @@ const Setpage = (props) => {
         }
     }
     const remove = async (formData) => { // Delete repository
-        console.log("jwt", localStorage.getItem('jwt'))
-        console.log(formData)
         try {
-            const requestUrl = "http://c86b6af13434.ngrok.io/" + localStorage.getItem('namespace') + "/repo/" + row.name;
+            const requestUrl = "http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com/" + localStorage.getItem('namespace') + "/repo/" + row.name;
             const response = await axios.delete(requestUrl,
             {
                 headers: {

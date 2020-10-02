@@ -79,7 +79,7 @@ const AddRepo = (props) => {
     const request = async (formData) => {
         try {
             console.log(formData.apiDoc);
-             const response = await axios.post("http://b4662ae0a162.ngrok.io/deploy",
+             const response = await axios.post("http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com/deploy",
              formData,
              {
                 headers: {
@@ -122,7 +122,6 @@ const AddRepo = (props) => {
             fileReader.readAsText(file);
         }
     }
-    console.log(localStorage.getItem('jwt'))
     return (
         <form onSubmit={onSubmitForm}>
             <div>
