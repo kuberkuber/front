@@ -22,8 +22,13 @@ const gitBtn = {
 const Menu = (props) => {
 	const handleLogin =  async () => {
 		try {
+<<<<<<< HEAD
 			// const response = await axios.get("http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/login");
 			const response = await axios.get("http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com/login");
+=======
+			const response = await axios.get("http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/login");
+			// const response = await axios.get("http://localhost:5000/login");
+>>>>>>> upstream/master
 			window.location.href = response.data;
 		} catch (err){
 			localStorage.clear()
