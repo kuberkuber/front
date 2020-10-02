@@ -26,17 +26,17 @@ export class ImageFinder extends React.Component {
                         "display": "inlineBlock"
                     }}
                 >
-                <ArrowBackOutlinedIcon 
+                <ArrowBackOutlinedIcon
                     onClick = {() => {
                     this.setState((state)=> {
                             state.stage = Math.max(0,state.stage - 1);
                             return state;
                             });
                     }}
-                    > 뒤로가기 
+                    > 뒤로가기
                 </ArrowBackOutlinedIcon>
                 </button>
-                {stage == 0 && 
+                {stage === 0 &&
                     <div>
                         <input type = "text" id = "searchString" style = {{
                             width: "500px",
@@ -46,7 +46,7 @@ export class ImageFinder extends React.Component {
                             "borderRadius": "12px",
                             "display": "inlineBlock"
                         }}/>
-                        <button 
+                        <button
                             style = {{
                                 width: "60px",
                                 height: "40px",
@@ -63,7 +63,7 @@ export class ImageFinder extends React.Component {
                         </button>
                     </div>
                 }
-                {stage == 1 && 
+                {stage === 1 &&
                     <RepoSearch searchString = {this.state.searchString} onSelect = {(owner, reponame) => {
                         this.setState((state) => {
                             state.owner = owner;
@@ -73,7 +73,7 @@ export class ImageFinder extends React.Component {
                         });
                     }}/>
                 }
-                {stage == 2 && 
+                {stage === 2 &&
                     <BranchSearch owner = {this.state.owner} reponame = {this.state.reponame} onSelect = {
                         (branchname) => {
                             this.setState((state) => {
@@ -87,7 +87,7 @@ export class ImageFinder extends React.Component {
                         }
                     }/>
                 }
-                {stage == 3 && <p> 선택 되었습니다. owner:{this.state.owner} reponame:{this.state.reponame} branch: {this.state.branchname}</p>}
+                {stage === 3 && <p> 선택 되었습니다. owner:{this.state.owner} reponame:{this.state.reponame} branch: {this.state.branchname}</p>}
             </div>
         );
     }
