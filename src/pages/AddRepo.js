@@ -77,8 +77,13 @@ const AddRepo = (props) => {
 
     const request = async (formData) => {
         try {
+<<<<<<< HEAD
+            console.log(formData.apiDoc);
+             const response = await axios.post("http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com/deploy",
+=======
              const response = await axios.post("http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/deploy",
             //  const response = await axios.post("http://localhost:5000/deploy",
+>>>>>>> upstream/master
              formData,
              {
                 headers: {

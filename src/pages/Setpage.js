@@ -70,8 +70,12 @@ const Setpage = (props) => {
     }
     const request = async (formData) => { // reDeploy
         try {
+<<<<<<< HEAD
+            const requestUrl = "http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com/" + localStorage.getItem('namespace') + "/repo/" + row.name;
+=======
             const requestUrl = "http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/" + localStorage.getItem('namespace') + "/repo/" + row.name;
             // const requestUrl = "http://localhost:5000/" + localStorage.getItem('namespace') + "/repo/" + row.name;
+>>>>>>> upstream/master
             const response = await axios.post(requestUrl + "/redeploy",
             formData,
             {
@@ -87,8 +91,12 @@ const Setpage = (props) => {
 
     const update = async (formData) => { // port Update
         try {
+<<<<<<< HEAD
+            const requestUrl = "http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com/" + localStorage.getItem('namespace') + "/repo/" + row.name;
+=======
             const requestUrl = "http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/" + localStorage.getItem('namespace') + "/repo/" + row.name;
             // const requestUrl = "http://localhost:5000/" + localStorage.getItem('namespace') + "/repo/" + row.name;
+>>>>>>> upstream/master
             const response = await axios.patch(requestUrl, formData,
             {
                 headers: {
@@ -103,8 +111,12 @@ const Setpage = (props) => {
     }
     const remove = async (formData) => { // Delete repository
         try {
+<<<<<<< HEAD
+            const requestUrl = "http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com/" + localStorage.getItem('namespace') + "/repo/" + row.name;
+=======
             const requestUrl = "http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/" + localStorage.getItem('namespace') + "/repo/" + row.name;
             // const requestUrl = "http://localhost:5000/" + localStorage.getItem('namespace') + "/repo/" + row.name;
+>>>>>>> upstream/master
             const response = await axios.delete(requestUrl,
             {
                 headers: {

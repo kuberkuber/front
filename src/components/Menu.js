@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import axios from 'axios';
 
 const toolbar = {
-	marginLeft: "25%",
+	marginLeft: "15%",
 };
 const name = {
 	color: "white",
@@ -54,7 +54,7 @@ const Menu = (props) => {
 							</Link>
 						</IconButton>
 					</Grid>
-					<Grid item xs={6}>
+					<Grid item xs={3}>
 						{localStorage.getItem('namespace') === null ?
 							<IconButton onClick={handleLogin}>
 								<GitHubIcon style={gitBtn} fontSize="large" />
@@ -67,9 +67,6 @@ const Menu = (props) => {
 								</Button>
 							</Typography>
 						}
-						{/* <IconButton onClick={()=> window.open("/login", 'new', 'scrollbars=no,resizable=no,width=570,height=350,left=100,top=150')}>
-						<GitHubIcon style={gitBtn} fontSize="large"/>
-					</IconButton> */}
 					</Grid>
 				</Toolbar>
 			</AppBar>

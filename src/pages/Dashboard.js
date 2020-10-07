@@ -60,8 +60,7 @@ const Dashboard = (props) => {
                 <Route path={`/repo/`} component={DetailRepo} />
                 <Route path={`/search`} component={ImageFinder}/>
                 <Route path="/">
-                    {/* {console.log("Here")} */}
-                    {localStorage.getItem('namespace') ?
+                    {/* {localStorage.getItem('namespace') ? */}
                         <div>
                             <h1 style={{ 'textAlign': 'center' }}>
                                 Dashboard
@@ -75,10 +74,9 @@ const Dashboard = (props) => {
                             <RepoTable data={repos} />
                             <br />
                         </div>
-                    : <LandingPage />
-                    }
+                    {/* : <LandingPage />
+                    } */}
                 </Route>
-
             </Switch>
         </div>
     );
