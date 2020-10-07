@@ -11,12 +11,12 @@ class App extends Component {
         return (
             <div>
                 <Menu />
-                {localStorage.getItem('namespace') ?
+                {localStorage.getItem('namespace') === null ?
+                    <LandingPage />
+                    :
                     <div className="App-content">
                         <Route path="/" render={(props) => <Dashboard {...props} />}/>
                     </div>
-                    :
-                    <LandingPage />
                 }
             </div>
         );

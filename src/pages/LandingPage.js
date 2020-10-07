@@ -6,7 +6,13 @@ const title_style = {
 	fontFamily:'Arial',
 	marginTop: '100px',
 	fontSize: 80,
-	textAlign: 'center'
+	// textAlign: 'center'
+}
+const subtitle_style = {
+	color: '#070b38',
+	marginTop: '10px',
+	fontSize: 20,
+	// textAlign: 'center'
 }
 const title2_style = {
 	color:'#10175e',
@@ -14,18 +20,10 @@ const title2_style = {
 	marginTop: '50px',
 	fontSize: 42,
 }
-const subtitle_style = {
-	color: '#070b38',
-	marginTop: '10px',
-	fontSize: 20,
-	textAlign: 'center'
-
-}
 const grid_style = {
 	marginTop: '100px',
 	fontSize: 24,
-	textAlign: 'center'
-
+	// textAlign: 'center'
 }
 const bottom_style = {
 	backgroundColor:'#070b38',
@@ -36,7 +34,7 @@ const bottom_style = {
 }
 const bottom_text_style = {
 	fontSize:12,
-	textAlign: 'center'
+	// textAlign: 'center',
 }
 const temp_style = {
 	height: '18vh'
@@ -47,6 +45,7 @@ const top_style={
 	alignItems: 'left',
 	marginLeft: '15%',
 	marginRight: '15%',
+	textAlign: 'center',
 }
 
 const LandingPage = () => {
