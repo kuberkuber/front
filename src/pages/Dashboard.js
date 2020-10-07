@@ -60,22 +60,22 @@ const Dashboard = (props) => {
                 <Route path={`/repo/`} component={DetailRepo} />
                 <Route path={`/search`} component={ImageFinder}/>
                 <Route path="/">
-                    {/* {localStorage.getItem('namespace') ? */}
-                        <div>
-                            <h1 style={{ 'textAlign': 'center' }}>
-                                Dashboard
-                            </h1>
-                            <Link to={`/add`} style={button}>
-                                <Button variant="outlined" color="primary">
-                                    Register new repository
-                                </Button>
-                            </Link>
-                            {/* <RepoTable data={data} /> */}
-                            <RepoTable data={repos} />
-                            <br />
-                        </div>
-                    {/* : <LandingPage />
-                    } */}
+                    { localStorage.getItem('namespace') !== null ?
+                    <div>
+                        <h1 style={{ 'textAlign': 'center' }}>
+                            Dashboard
+                        </h1>
+                        <Link to={`/add`} style={button}>
+                            <Button variant="outlined" color="primary">
+                                Register new repository
+                            </Button>
+                        </Link>
+                        <RepoTable data={repos} />
+                        <br />
+                    </div>
+                    :
+                    <LandingPage />
+                    }
                 </Route>
             </Switch>
         </div>
