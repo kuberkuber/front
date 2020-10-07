@@ -20,12 +20,8 @@ const Dashboard = (props) => {
     const repos = useSelector(state => state.kuberData.repos);
     const request = async () => {
         try {
-<<<<<<< HEAD
-            const response = await axios.get("http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com/", {
-=======
             const response = await axios.get("http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/", {
                 // const response = await axios.get("http://localhost:5000/", {
->>>>>>> upstream/master
                 headers: {
                     'Authorization' : 'Bearer ' + localStorage.getItem('jwt')
                 },
@@ -64,11 +60,7 @@ const Dashboard = (props) => {
                 <Route path={`/repo/`} component={DetailRepo} />
                 <Route path={`/search`} component={ImageFinder}/>
                 <Route path="/">
-<<<<<<< HEAD
-=======
-                    {/* {console.log("Here")} */}
->>>>>>> upstream/master
-                    {localStorage.getItem('namespace') ?
+                    {/* {localStorage.getItem('namespace') ? */}
                         <div>
                             <h1 style={{ 'textAlign': 'center' }}>
                                 Dashboard
@@ -82,10 +74,9 @@ const Dashboard = (props) => {
                             <RepoTable data={repos} />
                             <br />
                         </div>
-                    : <LandingPage />
-                    }
+                    {/* : <LandingPage />
+                    } */}
                 </Route>
-
             </Switch>
         </div>
     );

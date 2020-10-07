@@ -4,25 +4,21 @@ import { Route } from 'react-router-dom';
 import { Dashboard } from 'pages';
 import Menu from 'components/Menu';
 import { Grid } from '@material-ui/core';
-// import {kuberProvider} from './contexts/context'
+import { LandingPage } from './pages';
+
 class App extends Component {
     render() {
         return (
-            // <kuberProvider>
-                <div>
-                    <Menu />
+            <div>
+                <Menu />
+                {localStorage.getItem('namespace') ?
                     <div className="App-content">
-                        <Grid>
-                            <Grid item xs={12}>
-                                <Route
-                                    path="/"
-                                    render={(props) => <Dashboard {...props} />}
-                                />
-                            </Grid>
-                        </Grid>
+                        <Route path="/" render={(props) => <Dashboard {...props} />}/>
                     </div>
-                </div >
-            // </kuberProvider>
+                    :
+                    <LandingPage />
+                }
+            </div>
         );
     }
 }
