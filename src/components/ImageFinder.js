@@ -11,11 +11,15 @@ export class ImageFinder extends React.Component {
             owner: null,
             reponame: null,
             branchname: null,
+            license: {
+                name: null
+            },
             stage: 0,
         }
     }
     render() {
         const stage = this.state.stage;
+        console.log(this.state);
         return (
             <div>
                 <button
@@ -64,10 +68,12 @@ export class ImageFinder extends React.Component {
                     </div>
                 }
                 {stage === 1 &&
-                    <RepoSearch searchString = {this.state.searchString} onSelect = {(owner, reponame) => {
+                    <RepoSearch searchString = {this.state.searchString} onSelect = {
+                        (owner, reponame, license) => {
                         this.setState((state) => {
                             state.owner = owner;
                             state.reponame = reponame;
+                            state.license = license;
                             state.stage++;
                             return state;
                         });
@@ -87,7 +93,7 @@ export class ImageFinder extends React.Component {
                         }
                     }/>
                 }
-                {stage === 3 && <p> 선택 되었습니다. owner:{this.state.owner} reponame:{this.state.reponame} branch: {this.state.branchname}</p>}
+                {stage === 3 && <p> 선택 되었습니다. owner:{this.state.owner} reponame:{this.state.reponame} branch: {this.state.branchname} license: {this.state.license.name}</p>}
             </div>
         );
     }

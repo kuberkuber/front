@@ -23,11 +23,11 @@ export class RepoSearch extends React.Component {
             let miniItem = {
                 id: item.id,
                 reponame: item.name,
-                owner: item.owner.login
+                owner: item.owner.login,
+                license: item.license
             }
             searchItems.push(miniItem);
         }
-
         this.setState((state) => {
             state.searchItems = searchItems;
             return state;
@@ -39,7 +39,7 @@ export class RepoSearch extends React.Component {
                 {
                     this.state.searchItems.map((item, index) => {
                         return (
-                            <ExpansionPanel key = {index} onClick = {() => {this.props.onSelect(item.owner, item.reponame);}}>
+                            <ExpansionPanel key = {index} onClick = {() => {this.props.onSelect(item.owner, item.reponame, item.license);}}>
                                 <ExpansionPanelSummary
                                 expandIcon={<CheckOutlinedIcon />}
                                 aria-controls="panel1a-content"
