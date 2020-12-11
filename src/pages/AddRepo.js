@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import YAML from 'yamljs';
 import MyDropzone from 'components/MyDropZone';
+import ImageFinder from 'components/ImageFinder';
 
 const title = {
     "marginTop": "60px",
@@ -152,6 +153,13 @@ const AddRepo = (props) => {
                 </div>
                 <div style={content}>
                     <Typography variant="h6" gutterBottom>
+                        Search Github Repository
+                    </Typography>
+                    <ImageFinder/>
+
+                </div>
+                <div style={content}>
+                    <Typography variant="h6" gutterBottom>
                         Docker Image
                     </Typography>
                     <TextField
@@ -190,7 +198,7 @@ const AddRepo = (props) => {
                             shrink: true,
                         }}
                     />
-                </div>
+                </div>]
                 <div style={content}>
                     <Typography variant="h6" style={{ "textAlign": "left" }} gutterBottom>
                         API document

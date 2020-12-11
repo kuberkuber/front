@@ -2,7 +2,12 @@ import { render } from '@testing-library/react';
 import React from 'react';
 import { BranchSearch } from './BranchSearch';
 import { RepoSearch } from './RepoSearch';
-import ArrowBackOutlinedIcon from '@material-ui/icons/ArrowBackOutlined';
+import SearchIcon from '@material-ui/icons/Search';
+import { TextField, IconButton } from "@material-ui/core"
+
+const searchContainer = {
+    "marginTop":"25px",
+}
 export class ImageFinder extends React.Component {
     constructor() {
         super();
@@ -22,49 +27,34 @@ export class ImageFinder extends React.Component {
         console.log(this.state);
         return (
             <div>
-                <button
-                    style = {{
-                        "background": "#BBFFBB",
-                        "borderRadius": "3px",
-                        "borderWidth": "0px",
-                        "display": "inlineBlock"
-                    }}
-                >
-                <ArrowBackOutlinedIcon
-                    onClick = {() => {
-                    this.setState((state)=> {
-                            state.stage = Math.max(0,state.stage - 1);
-                            return state;
-                            });
-                    }}
-                    > 뒤로가기
-                </ArrowBackOutlinedIcon>
-                </button>
                 {stage === 0 &&
-                    <div>
-                        <input type = "text" id = "searchString" style = {{
-                            width: "500px",
-                            height: "40px",
-                            "lineHeight": "40px",
-                            "fontSize": "37px",
-                            "borderRadius": "12px",
-                            "display": "inlineBlock"
-                        }}/>
-                        <button
-                            style = {{
-                                width: "60px",
-                                height: "40px",
-                                "display": "inlineBlock"
+                    <div style={searchContainer}>
+                        {/* <div style={searchBar}> */}
+
+                        <TextField 
+                            style={{
+                                "width":"500px"
                             }}
+                            placeholder="Search..."
+                            id="searchString"
+                            inputProps={{style: {fontSize: 16}}}
+                            InputLabelProps={{style: {fontSize: 16}}} // font size of input label
+
+                        />
+                        
+                        <IconButton variant="outlined" color="primary"
                             onClick = {(stage) => {
                             this.setState((state) => {
+
                                 state.searchString = document.getElementById('searchString').value;
+                                console.log(state.searchString)
                                 state.stage++;
                                 return state;
                             })
                         }}>
-                            검색
-                        </button>
+                        <SearchIcon color="primary" fontSize="medium"/>
+                        </IconButton>
+
                     </div>
                 }
                 {stage === 1 &&
@@ -98,3 +88,5 @@ export class ImageFinder extends React.Component {
         );
     }
 }
+
+export default ImageFinder;
