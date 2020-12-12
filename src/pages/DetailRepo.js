@@ -119,21 +119,15 @@ const DetailRepo = () => {
 
 	const requestReadme = async (formData) => {
         try {
-            const requestUrl = "http://d3b596500198.ngrok.io/" + localStorage.getItem('namespace') + "/repo/" + row.name;
+            const requestUrl = "http://cfb8989e96aa.ngrok.io/" + localStorage.getItem('namespace') + "/repo/" + row.name;
 			const response = await axios.patch(requestUrl + "/readmedoc", formData,
 			{
 				headers: {
 					'Authorization' : 'Bearer ' + localStorage.getItem('jwt')
 			}});
 			await dispatch({
-				// type: 'UPDATEREPO',
 				type: 'UPDATEREADME',
 				name: response.data.name,
-				// status: response.data.status,
-				// deployTime: response.data.deployTime,
-				// endpoint: response.data.endpoint,
-				// port: response.data.port,
-				// apiDoc: response.data.apiDoc,
 				readmeDoc: response.data.readmeDoc,
 			});
             return response.response;
