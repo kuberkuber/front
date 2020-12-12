@@ -3,21 +3,15 @@ import './App.css';
 import { Route } from 'react-router-dom';
 import { Dashboard } from 'pages';
 import Menu from 'components/Menu';
-import { Grid } from '@material-ui/core';
-import { LandingPage } from './pages';
 
 class App extends Component {
     render() {
         return (
             <div>
                 <Menu />
-                {/* {localStorage.getItem('namespace') === null ?
-                    <LandingPage />
-                    : */}
-                    <div className="App-content">
-                        <Route path="/" render={(props) => <Dashboard {...props} />}/>
-                    </div>
-                {/* } */}
+                <div className="App-content">
+                    <Route path="/" render={(props) => <Dashboard {...props} />}/>
+                </div>
             </div>
         );
     }
