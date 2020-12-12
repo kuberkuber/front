@@ -1,5 +1,9 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
+import pic1 from '../resources/pic1.svg';
+import pic2 from '../resources/pic2.svg';
+import pic3 from '../resources/pic3.svg';
+import pic4 from '../resources/pic4.svg';
 
 const title_style = {
 	color:'#10175e',
@@ -30,7 +34,7 @@ const bottom_style = {
 	marginTop: '50px',
 	color: '#ffffff',
 	height: '20vh',
-	marginTop: '200px',
+	// marginTop: '200px',
 }
 const bottom_text_style = {
 	fontSize:12,
@@ -48,26 +52,35 @@ const top_style={
 	textAlign: 'center',
 }
 
+const imgStyle = {
+	width: "20%",
+	height: "20%",
+	maxWidth: "150px",
+	maxHeight: "150px",
+	margin: "auto"
+}
+
+const imgPanelStyle = {
+	display: "flex",
+	marginTop: "100px"
+}
+
+
 const LandingPage = () => {
 	return (
-		<div style={top_style}>
-			<Grid container >
-				<Grid item xs={12} style={title_style}>Kuber Kuber</Grid>
-				<Grid item xs={12} style={subtitle_style}>For Open Source Activation</Grid>
-			</Grid>
-			<Grid container style={grid_style}>
-				<Grid item xs={12} style={title2_style}>Our Special Features</Grid>
-				<Grid item xs={6}>Convenient test</Grid>
-				<Grid item xs={6}>Auto deployment</Grid>
-			</Grid>
-			<footer style={bottom_style}>
-				<div style={temp_style}></div>
-				<Grid container>
-					<Grid item xs={4} style={bottom_text_style}>Kuber Kuber</Grid>
-					<Grid item xs={4} style={bottom_text_style}>Copyright2020</Grid>
-					<Grid item xs={4} style={bottom_text_style}>All Rights Reserved</Grid>
+		<div>
+			<div style={top_style}>
+				<Grid container >
+					<Grid item xs={12} style={title_style}>Kuber Kuber</Grid>
+					<Grid item xs={12} style={subtitle_style}>For Open Source Activation</Grid>
 				</Grid>
-			</footer>
+			</div>
+			<div style={imgPanelStyle}>
+				<img src={pic1} style={imgStyle}></img>
+				<img src={pic3} style={imgStyle}></img>
+				<img src={pic4} style={imgStyle}></img>
+				<img src={pic2} style={imgStyle}></img>
+			</div>
 		</div>
 	);
 }
