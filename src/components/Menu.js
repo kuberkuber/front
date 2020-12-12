@@ -23,7 +23,7 @@ const gitBtn = {
 const Menu = (props) => {
 	const handleLogin =  async () => {
 		try {
-			const response = await axios.get("http://d3b596500198.ngrok.io/login");
+			const response = await axios.get("http://cfb8989e96aa.ngrok.io/login");
 			// const response = await axios.get("http://localhost:5000/login");
 			window.location.href = response.data;
 		} catch (err){

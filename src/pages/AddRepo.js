@@ -80,7 +80,7 @@ const AddRepo = (props) => {
 
     const request = async (formData) => {
         try {
-             const response = await axios.post("http://d3b596500198.ngrok.io/deploy",
+             const response = await axios.post("http://cfb8989e96aa.ngrok.io/deploy",
             //  const response = await axios.post("http://localhost:5000/deploy",
              formData,
              {

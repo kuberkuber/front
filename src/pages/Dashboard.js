@@ -18,9 +18,10 @@ const Dashboard = (props) => {
     const dispatch = useDispatch();
     const [mount, setMount] = useState(false);
     const repos = useSelector(state => state.kuberData.repos);
+    console.log(repos)
     const request = async () => {
         try {
-            const response = await axios.get("http://d3b596500198.ngrok.io", {
+            const response = await axios.get("http://cfb8989e96aa.ngrok.io", {
                 // const response = await axios.get("http://localhost:5000/", {
                 headers: {
                     'Authorization' : 'Bearer ' + localStorage.getItem('jwt')
