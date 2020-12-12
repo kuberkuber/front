@@ -75,7 +75,7 @@ function kuberData(state = initialState, action) {
         }
         case UPDATEREADME: {
             let idx = (state.repos).findIndex(repo=>(repo.name===action.name));
-            state.repos[idx].readmeDoc = action.data;
+            state.repos[idx].readmeDoc = action.readmeDoc;
             return {
                 ...state,
                 repos: [...state.repos]
