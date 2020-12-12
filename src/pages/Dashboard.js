@@ -20,7 +20,7 @@ const Dashboard = (props) => {
     const repos = useSelector(state => state.kuberData.repos);
     const request = async () => {
         try {
-            const response = await axios.get("http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/", {
+            const response = await axios.get("http://d3b596500198.ngrok.io", {
                 // const response = await axios.get("http://localhost:5000/", {
                 headers: {
                     'Authorization' : 'Bearer ' + localStorage.getItem('jwt')
@@ -30,12 +30,13 @@ const Dashboard = (props) => {
                 }
             });
             await dispatch({
-                type: 'UPDATEDATA',
+                type: 'UPDATEALLREPO',
                 data: response.data
             });
             return response.data;
         }
         catch (error) {
+            console.log("dashboard request error");
             localStorage.clear()
             props.history.push({
                 path: '/'

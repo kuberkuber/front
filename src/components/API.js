@@ -8,6 +8,7 @@ import ParamTable from './ParamTable';
 import Response from './Response';
 import {Grid} from '@material-ui/core';
 
+
 const content = {
 	"marginBottom": "30px"
 };
@@ -38,11 +39,11 @@ const API = ({method, title, info, endpointUri}) => {
 					<Typography variant="h6">
 						{title}
 					</Typography>
-				</ExpansionPanelSummary>
-				<ExpansionPanelSummary>
-					<Typography variant="subtitle1">
-						Description : {info.description}
-					</Typography>
+					<div style={{margin: "auto 0 auto auto"}}>
+						<Typography variant="caption">
+							{info.description}
+						</Typography>
+					</div>
 				</ExpansionPanelSummary>
 				<ExpansionPanelDetails>
 					<Grid container >

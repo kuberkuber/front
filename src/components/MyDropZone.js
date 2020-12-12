@@ -8,7 +8,8 @@ const whitebox = {
     "borderColor": "#eeeeee",
     "borderRadius": "3px",
     "width": "90%",
-    "display": "inline-block"
+    // "display": "inline-block",
+    "margin": "auto"
 };
 
 const box = {
@@ -58,7 +59,7 @@ const MyDropzone = ({ swaggerRead }) => {
     ));
 
     return (
-        <section className="container" style={whitebox}>
+        <section style={whitebox}>
             <div style={boxstyle} {...getRootProps()}>
                 <input {...getInputProps()}/>
                 <p>Drag 'n' drop some files here, or click to select files</p>

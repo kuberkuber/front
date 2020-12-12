@@ -13,7 +13,8 @@ const toolbar = {
 const name = {
 	color: "white",
 	fontFamily: "Arial",
-	paddingLeft: "10px"
+	margin: "auto 10px"
+
 };
 const gitBtn = {
 	color: "white",
@@ -22,7 +23,7 @@ const gitBtn = {
 const Menu = (props) => {
 	const handleLogin =  async () => {
 		try {
-			const response = await axios.get("http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/login");
+			const response = await axios.get("http://d3b596500198.ngrok.io/login");
 			// const response = await axios.get("http://localhost:5000/login");
 			window.location.href = response.data;
 		} catch (err){
@@ -60,12 +61,14 @@ const Menu = (props) => {
 								<GitHubIcon style={gitBtn} fontSize="large" />
 							</IconButton>
 							:
-							<Typography style={name}>
-								{localStorage.getItem('namespace')}
+							<div style={{display: "flex"}}>
+								<Typography style={name}>
+									{localStorage.getItem('namespace')}
+								</Typography>
 								<Button onClick={handleLogout} size="small" variant="outlined" color="inherit">
 									LogOut
 								</Button>
-							</Typography>
+							</div>
 						}
 					</Grid>
 				</Toolbar>

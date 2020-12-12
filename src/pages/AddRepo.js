@@ -25,6 +25,7 @@ const AddRepo = (props) => {
     const dispatch = useDispatch();
 
     let swaggerInfo = null;
+    let readmeInfo = null;
 
     const isRepoNameError = () => {
         const repoError = "repository name must consist of lower case alphanumeric characters or '-', and must start and end with an alphanumeric character";
@@ -58,17 +59,18 @@ const AddRepo = (props) => {
 
     const asyncFunc = (formData,res) => {
         dispatch({
-            type: 'ACTIVEDATA',
+            type: 'ACTIVEREPO',
             name: formData.repoName,
             deployTime: res.data.deployTime,
             endpoint: res.data.endpoint,
-            apiDoc: formData.apiDoc
+            apiDoc: formData.apiDoc,
+            readmeDoc: formData.readmeDoc
         });
     }
 
     const goMainPage = (formData) => {
         dispatch({
-            type: 'INSERTDATA',
+            type: 'INSERTREPO',
             data: { name: formData.repoName, deployTime: "",status: "Deploying..." }
         });
         props.history.push({
@@ -78,7 +80,7 @@ const AddRepo = (props) => {
 
     const request = async (formData) => {
         try {
-             const response = await axios.post("http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/deploy",
+             const response = await axios.post("http://d3b596500198.ngrok.io/deploy",
             //  const response = await axios.post("http://localhost:5000/deploy",
              formData,
              {
@@ -106,7 +108,8 @@ const AddRepo = (props) => {
             repoName : repoName,
             imageName: dockerImage,
             portNum : port,
-            apiDoc : swaggerInfo === null ? null : swaggerInfo.paths
+            apiDoc : swaggerInfo === null ? null : swaggerInfo.paths,
+            readmeDoc : readmeInfo === null ? null : readmeInfo
         };
         request(formData);
         goMainPage(formData);
@@ -122,6 +125,18 @@ const AddRepo = (props) => {
             fileReader.readAsText(file);
         }
     }
+
+    const readmeRead = (e) => {
+        let file = e.target.files[0];
+        let fileReader = new FileReader();
+        if (file !== undefined) {
+            fileReader.onload = () => {
+                readmeInfo = fileReader.result;
+            };
+            fileReader.readAsText(file);
+        }
+    }
+
     return (
         <form onSubmit={onSubmitForm}>
             <div>
@@ -204,6 +219,12 @@ const AddRepo = (props) => {
                         API document
                     </Typography>
                     <MyDropzone swaggerRead={swaggerRead} />
+                </div>
+                <div style={content}>
+                    <Typography variant="h6" style={{ "textAlign": "left" }} gutterBottom>
+                        README document
+                    </Typography>
+                    <MyDropzone swaggerRead={readmeRead} />
                 </div>
                 <br/>
                 <div style={content}>

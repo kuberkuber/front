@@ -23,17 +23,7 @@ const Setpage = (props) => {
     const data = useSelector(state => state.kuberData.repos);
     const location = useLocation();
     const row = location.state.row;
-
-    const d = data.filter(repo=>repo.name===row.name);
-//    console.log(d[0]);
-    let placeport = "";
-
-    for (const key in d[0]) {
-        if( key === "port" && d[0].hasOwnProperty(key))
-            row.port = d[0].port;
-            placeport = d[0].port;
-    }
-//    console.log(row);
+    // const d = data.filter(repo=>repo.name===row.name);
     const [port, setPort] = useState('');
 
     const isError = (pport) => {
@@ -42,69 +32,87 @@ const Setpage = (props) => {
             return portError;
         return false;
     }
-    const asyncPortFunc = (formData) => { //action type : UPDATEDATA 일 경우,
-        dispatch({
-            type: 'CHANGEPORT',
-            name: formData.repoName,
-            data : formData.portNum
-        });
-//        row.port = formData.portNum;
-    }
-    const asyncFunc = (formData,res) => { //action type : UPDATEDATA 일 경우,
-        dispatch({
-            type: 'CHANGEDATA',
-            name: formData.repoName,
-            data : res.data
-        });
-    }
-    const asyncDelFunc =(formData) => { //action type : DELETEDATA 일 경우,
-        dispatch({
-            type: 'DELETEDATA',
-            name: formData.repoName
-        })
-    }
+
+    // let placeport = "";
+
+    // for (const key in d[0]) {
+    //     if( key === "port" && d[0].hasOwnProperty(key))
+    //         row.port = d[0].port;
+    //         placeport = d[0].port;
+    // }
+//    console.log(row);
+
+
+    // const asyncFunc = (formData,res) => { //action type : UPDATEDATA 일 경우,
+    //     dispatch({
+    //         type: 'CHANGEDATA',
+    //         name: formData.repoName,
+    //         data : res.data
+    //     });
+    // }
+    // const asyncDelFunc =(formData) => { //action type : DELETEDATA 일 경우,
+    //     dispatch({
+    //         type: 'DELETEDATA',
+    //         name: formData.repoName
+    //     })
+    // }
     const goMainPage = () => {
         props.history.push({
             pathname: '/',
         });
     }
-    const request = async (formData) => { // reDeploy
+
+    const reqReDeploy = async (formData) => { // reDeploy
         try {
-            const requestUrl = "http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/" + localStorage.getItem('namespace') + "/repo/" + row.name;
-            // const requestUrl = "http://localhost:5000/" + localStorage.getItem('namespace') + "/repo/" + row.name;
+            const requestUrl = "http://d3b596500198.ngrok.io/" + localStorage.getItem('namespace') + "/repo/" + row.name;
             const response = await axios.post(requestUrl + "/redeploy",
             formData,
             {
                 headers: {
                     'Authorization' : 'Bearer ' + localStorage.getItem('jwt')
             }});
-            await asyncFunc(formData,response);
+            // await asyncFunc(formData,response);
+            await dispatch({
+                type: 'REDEPLOYREPO',
+                name: formData.repoName,
+                data : response.data
+            });
         }
         catch (error) {
             console.log(error);
         }
     }
 
-    const update = async (formData) => { // port Update
+    const reqUpdatePort = async (formData) => { // port Update
         try {
-            const requestUrl = "http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/" + localStorage.getItem('namespace') + "/repo/" + row.name;
-            // const requestUrl = "http://localhost:5000/" + localStorage.getItem('namespace') + "/repo/" + row.name;
-            const response = await axios.patch(requestUrl, formData,
+            const requestUrl = "http://d3b596500198.ngrok.io/" + localStorage.getItem('namespace') + "/repo/" + row.name;
+            const response = await axios.patch(requestUrl + "/port", formData,
             {
                 headers: {
                     'Authorization' : 'Bearer ' + localStorage.getItem('jwt')
             }});
-            await asyncPortFunc(formData,response);
-            alert("port 변경!");
+            await dispatch({
+                // type: 'UPDATEREPO',
+                type: 'UPDATEPORT',
+				name: response.data.name,
+				// status: response.data.status,
+				// deployTime: response.data.deployTime,
+				// endpoint: response.data.endpoint,
+				port: response.data.port,
+				// apiDoc: response.data.apiDoc,
+				// readmeDoc: response.data.readmeDoc,
+            });
+            console.log(response.data);
+            console.log(formData.portNum, response.data.port)
+            alert(`portNum ${response.data.port}로 변경!`);
         }
         catch (error) {
             console.log(error);
         }
     }
-    const remove = async (formData) => { // Delete repository
+    const reqRemoveRepo = async (formData) => { // Delete repository
         try {
-            const requestUrl = "http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/" + localStorage.getItem('namespace') + "/repo/" + row.name;
-            // const requestUrl = "http://localhost:5000/" + localStorage.getItem('namespace') + "/repo/" + row.name;
+            const requestUrl = "http://d3b596500198.ngrok.io/" + localStorage.getItem('namespace') + "/repo/" + row.name;
             const response = await axios.delete(requestUrl,
             {
                 headers: {
@@ -114,7 +122,12 @@ const Setpage = (props) => {
                     formData: formData
                 }
             });
-            await asyncDelFunc(formData);
+            // await asyncDelFunc(formData);
+            await dispatch({
+                // type: 'DELETEDATA',
+                type: 'DELETEREPO',
+                name: formData.repoName
+            })
             await goMainPage();
         }
         catch (error) {
@@ -123,7 +136,7 @@ const Setpage = (props) => {
     }
     const updatePort = (e) => { // port Update 버튼
         e.preventDefault();
-        const msg = isError(port);
+        const msg = isError(row.port);
         if(msg !== false) {
             alert(msg);
         }
@@ -131,22 +144,21 @@ const Setpage = (props) => {
             repoName: row.name,
             portNum : port
         };
-        row.port = formData.portNum;
-        update(formData);
+        reqUpdatePort(formData);
     }
     const reDeploy = (e) => { // re-deploy 버튼
         e.preventDefault();
         const formData = {
             repoName: row.name,
         };
-        request(formData);
+        reqReDeploy(formData);
     }
     const deleteRepo = (e) => { // delete 버튼
         e.preventDefault();
         const formData = {
             repoName: row.name,
         }
-        remove(formData);
+        reqRemoveRepo(formData);
     }
     return (
             <div>
@@ -183,7 +195,7 @@ const Setpage = (props) => {
 				    </Typography>
                     <TextField
                         id="standard-full-width"
-                        placeholder={placeport}
+                        placeholder={row.port}
                         value={port}
                         onChange={
                             (e) => {
@@ -216,10 +228,10 @@ const Setpage = (props) => {
                 <p>Deleting a project will make your deployment unavailable,
                     but your image will remain at the original repository.</p>
                 <form onSubmit={deleteRepo}>
-                <Button variant="outlined" color="secondary" type="submit">
-                        Delete
-					</Button>
-                    </form>
+                    <Button variant="outlined" color="secondary" type="submit">
+                            Delete
+                    </Button>
+                </form>
 			    </div>
                  <br/>
             </div>
