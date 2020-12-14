@@ -6,6 +6,7 @@ import axios from 'axios';
 import YAML from 'yamljs';
 import MyDropzone from 'components/MyDropZone';
 import ImageFinder from 'components/ImageFinder';
+import Github from "../modules/github";
 
 const title = {
     "marginTop": "60px",
@@ -18,6 +19,8 @@ const content = {
 
 const AddRepo = (props) => {
     const [repoName, setRepoName] = useState('');
+    const [license, setLicense] = useState('');
+    const [gitUrl, setGitUrl] = useState('');
     const [dockerImage, setDockerImage] = useState('');
     const [port, setPort] = useState('');
     const data = useSelector(state => state.kuberData.respos);
@@ -80,7 +83,7 @@ const AddRepo = (props) => {
 
     const request = async (formData) => {
         try {
-             const response = await axios.post("http://cfb8989e96aa.ngrok.io/deploy",
+             const response = await axios.post("http://e2e17c8722bb.ngrok.io/deploy",
             //  const response = await axios.post("http://localhost:5000/deploy",
              formData,
              {
@@ -88,6 +91,7 @@ const AddRepo = (props) => {
                     'Authorization' : 'Bearer ' + localStorage.getItem('jwt')
             }});
             await asyncFunc(formData,response);
+            console.log(response);
             swaggerInfo = null;
             return response.response;
         }
@@ -102,10 +106,12 @@ const AddRepo = (props) => {
         if( msg !== ''){
             alert(msg);
             return ;
+
         }
         const formData = {
             namespace : localStorage.getItem('namespace'),
             repoName : repoName,
+            license : license,
             imageName: dockerImage,
             portNum : port,
             apiDoc : swaggerInfo === null ? null : swaggerInfo.paths,
@@ -114,6 +120,19 @@ const AddRepo = (props) => {
         request(formData);
         goMainPage(formData);
     };
+    
+    const searchLicense = async (e) => {
+        var tokens = gitUrl.split('/').reverse();
+        var reponame = tokens[0];
+        var owner = tokens[1];
+        var res = await (await Github.getRepository(owner, reponame)).data.license;
+        if (res !== null) {
+            res = res.name;
+        }
+        setLicense(res);
+        console.log(res);
+
+    }
 
     const swaggerRead = (e) => {
         let file = e.target.files[0];
@@ -168,9 +187,30 @@ const AddRepo = (props) => {
                 </div>
                 <div style={content}>
                     <Typography variant="h6" gutterBottom>
-                        Search Github Repository
+                        Search Github Repository for License
                     </Typography>
-                    <ImageFinder/>
+                    {/* <ImageFinder/> */}
+                    <TextField
+                        id="standard-full-width"
+                        // helperText="KuberKuber only support public image's lates tag"
+                        // placeholder="DockerHub image to deploy (e.g. demo/image)"
+                        value={gitUrl}
+                        onChange={(e) => {
+                            setGitUrl(e.target.value)
+                            }
+                        }
+                        fullWidth
+                        margin="normal"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                    />
+                    <Button variant="outlined" color="primary" onClick={searchLicense}>
+                        찾기
+                    </Button>
+                    <span style={{padding:"20px"}}>
+                        {license}
+                        </span>
 
                 </div>
                 <div style={content}>
@@ -213,7 +253,7 @@ const AddRepo = (props) => {
                             shrink: true,
                         }}
                     />
-                </div>]
+                </div>
                 <div style={content}>
                     <Typography variant="h6" style={{ "textAlign": "left" }} gutterBottom>
                         API document

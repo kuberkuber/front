@@ -21,7 +21,7 @@ const Dashboard = (props) => {
     console.log(repos)
     const request = async () => {
         try {
-            const response = await axios.get("http://cfb8989e96aa.ngrok.io", {
+            const response = await axios.get("http://e2e17c8722bb.ngrok.io", {
                 // const response = await axios.get("http://localhost:5000/", {
                 headers: {
                     'Authorization' : 'Bearer ' + localStorage.getItem('jwt')
@@ -60,7 +60,7 @@ const Dashboard = (props) => {
                 <Route path={`/add`} component={AddRepo} />
                 <Route path="/user" component={Login} />
                 <Route path={`/repo/`} component={DetailRepo} />
-                <Route path={`/search`} component={ImageFinder}/>
+                <Route path={`/search/`} component={ImageFinder}/>
                 <Route path="/">
                     { localStorage.getItem('namespace') !== null ?
                     <div>

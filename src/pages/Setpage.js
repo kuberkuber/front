@@ -64,7 +64,7 @@ const Setpage = (props) => {
 
     const reqReDeploy = async (formData) => { // reDeploy
         try {
-            const requestUrl = "http://cfb8989e96aa.ngrok.io/" + localStorage.getItem('namespace') + "/repo/" + row.name;
+            const requestUrl = "http://e2e17c8722bb.ngrok.io/" + localStorage.getItem('namespace') + "/repo/" + row.name;
             const response = await axios.post(requestUrl + "/redeploy",
             formData,
             {
@@ -85,7 +85,7 @@ const Setpage = (props) => {
 
     const reqUpdatePort = async (formData) => { // port Update
         try {
-            const requestUrl = "http://cfb8989e96aa.ngrok.io/" + localStorage.getItem('namespace') + "/repo/" + row.name;
+            const requestUrl = "http://e2e17c8722bb.ngrok.io/" + localStorage.getItem('namespace') + "/repo/" + row.name;
             const response = await axios.patch(requestUrl + "/port", formData,
             {
                 headers: {
@@ -112,7 +112,7 @@ const Setpage = (props) => {
     }
     const reqRemoveRepo = async (formData) => { // Delete repository
         try {
-            const requestUrl = "http://cfb8989e96aa.ngrok.io/" + localStorage.getItem('namespace') + "/repo/" + row.name;
+            const requestUrl = "http://e2e17c8722bb.ngrok.io/" + localStorage.getItem('namespace') + "/repo/" + row.name;
             const response = await axios.delete(requestUrl,
             {
                 headers: {

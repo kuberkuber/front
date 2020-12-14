@@ -98,6 +98,8 @@ const DetailRepo = () => {
 	const [value, setValue] = React.useState(0);
 	const location = useLocation();
 	const row = location.state.row;
+	const license = row.license;
+	console.log(license);
 	// const data = useSelector(state => state.kuberData.repos[row]);
 	let readmeInfo = null;
 
@@ -119,7 +121,7 @@ const DetailRepo = () => {
 
 	const requestReadme = async (formData) => {
         try {
-            const requestUrl = "http://cfb8989e96aa.ngrok.io/" + localStorage.getItem('namespace') + "/repo/" + row.name;
+            const requestUrl = "http://e2e17c8722bb.ngrok.io/" + localStorage.getItem('namespace') + "/repo/" + row.name;
 			const response = await axios.patch(requestUrl + "/readmedoc", formData,
 			{
 				headers: {
@@ -177,6 +179,10 @@ const DetailRepo = () => {
 						<LinkIcon />
 					</Typography>
 				</a>
+				<Button variant="outlined" color="primary">
+					{license}
+				</Button>
+				
 			</div>
 			<div style={title}>
 				<AppBar position="static">
