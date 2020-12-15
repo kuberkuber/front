@@ -21,8 +21,8 @@ const Dashboard = (props) => {
     console.log(repos)
     const request = async () => {
         try {
-            const response = await axios.get("http://e2e17c8722bb.ngrok.io", {
-                // const response = await axios.get("http://localhost:5000/", {
+            const response = await axios.get("http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000", {
+                // const response = await axios.get("http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/", {
                 headers: {
                     'Authorization' : 'Bearer ' + localStorage.getItem('jwt')
                 },

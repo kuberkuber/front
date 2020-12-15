@@ -5,8 +5,8 @@ import axios from 'axios';
 const Login = (props) => {
 	const login = async() => {
 		try {
-			const response = await axios.get("http://e2e17c8722bb.ngrok.io/user" + window.location.search)
-			// const response = await axios.get("http://localhost:5000/user" + window.location.search)
+			const response = await axios.get("http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/user" + window.location.search)
+			// const response = await axios.get("http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/user" + window.location.search)
 			localStorage.setItem('namespace', response.data.name);
 			localStorage.setItem('jwt', response.data.jwt);
 		} catch (error) {
