@@ -67,7 +67,8 @@ const AddRepo = (props) => {
             deployTime: res.data.deployTime,
             endpoint: res.data.endpoint,
             apiDoc: formData.apiDoc,
-            readmeDoc: formData.readmeDoc
+            readmeDoc: formData.readmeDoc,
+            license: formData.license
         });
     }
 
@@ -83,8 +84,8 @@ const AddRepo = (props) => {
 
     const request = async (formData) => {
         try {
-             const response = await axios.post("http://e2e17c8722bb.ngrok.io/deploy",
-            //  const response = await axios.post("http://localhost:5000/deploy",
+             const response = await axios.post("http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/deploy",
+            //  const response = await axios.post("http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/deploy",
              formData,
              {
                 headers: {
@@ -120,7 +121,7 @@ const AddRepo = (props) => {
         request(formData);
         goMainPage(formData);
     };
-    
+
     const searchLicense = async (e) => {
         var tokens = gitUrl.split('/').reverse();
         var reponame = tokens[0];

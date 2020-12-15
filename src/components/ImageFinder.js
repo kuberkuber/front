@@ -24,14 +24,13 @@ export class ImageFinder extends React.Component {
     }
     render() {
         const stage = this.state.stage;
-        console.log(this.state);
         return (
             <div>
                 {stage === 0 &&
                     <div style={searchContainer}>
                         {/* <div style={searchBar}> */}
 
-                        <TextField 
+                        <TextField
                             style={{
                                 "width":"500px"
                             }}
@@ -41,13 +40,12 @@ export class ImageFinder extends React.Component {
                             InputLabelProps={{style: {fontSize: 16}}} // font size of input label
 
                         />
-                        
+
                         <IconButton variant="outlined" color="primary"
                             onClick = {(stage) => {
                             this.setState((state) => {
 
                                 state.searchString = document.getElementById('searchString').value;
-                                console.log(state.searchString)
                                 state.stage++;
                                 return state;
                             })

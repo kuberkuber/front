@@ -36,6 +36,8 @@ function kuberData(state = initialState, action) {
                 state.repos[idx].endpoint = action.endpoint;
                 state.repos[idx].apiDoc = action.apiDoc;
                 state.repos[idx].readmeDoc = action.readmeDoc;
+                state.repos[idx].license = action.license;
+
             }
             return {
                 ...state,
