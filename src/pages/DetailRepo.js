@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
@@ -55,6 +55,17 @@ const readmeStyle = {
 	"borderRadius" : "6px",
 };
 
+const logStyle = {
+	"marginTop" : "20px",
+	"marginLeft" : "0",
+	"marginRight" : "0",
+	"padding" : "32px",
+	"border" : "1px solid rgb(0,0,0)",
+	"borderRadius" : "6px",
+	"color" : "white",
+	"backgroundColor": "black",
+};
+
 const panelStyle = {
 	width: "90%",
 	margin: "0 auto"
@@ -96,12 +107,13 @@ const a11yProps = (index) => {
 
 const DetailRepo = () => {
 	const [value, setValue] = React.useState(0);
+	const [podLog, setPodLog] = useState([]);
 	const location = useLocation();
 	const row = location.state.row;
 	const license = row.license;
-	console.log(license);
 	// const data = useSelector(state => state.kuberData.repos[row]);
 	let readmeInfo = null;
+	// let log_arr = [];
 
 	const dispatch = useDispatch();
 	const handleChange = (event, newValue) => {
@@ -120,8 +132,8 @@ const DetailRepo = () => {
 	}
 
 	const requestReadme = async (formData) => {
-        try {
-            const requestUrl = "http://e2e17c8722bb.ngrok.io/" + localStorage.getItem('namespace') + "/repo/" + row.name;
+		try {
+			const requestUrl = "http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/" + localStorage.getItem('namespace') + "/repo/" + row.name;
 			const response = await axios.patch(requestUrl + "/readmedoc", formData,
 			{
 				headers: {
@@ -132,13 +144,13 @@ const DetailRepo = () => {
 				name: response.data.name,
 				readmeDoc: response.data.readmeDoc,
 			});
-            return response.response;
-        }
-        catch (error) {
+			return response.response;
+		}
+		catch (error) {
 			console.error(error)
 			alert("Error! README update");
-            return error.response;
-        }
+			return error.response;
+		}
 	};
 
 	const updateReadme = (e) => {
@@ -149,6 +161,17 @@ const DetailRepo = () => {
 		};
 		requestReadme(formData);
 	};
+
+
+	const getLog = async (e) => {
+		const requestUrl = "http://ec2-15-165-100-105.ap-northeast-2.compute.amazonaws.com:5000/" + localStorage.getItem('namespace') + "/repo/" + row.name;
+		const response = await axios.get(requestUrl + "/log",
+		{
+			headers: {
+				'Authorization' : 'Bearer ' + localStorage.getItem('jwt')
+		}});
+		setPodLog(response.data.split('\n'))
+	}
 
 	return (
 		<div>
@@ -182,16 +205,16 @@ const DetailRepo = () => {
 				<Button variant="outlined" color="primary">
 					{license}
 				</Button>
-				
+
 			</div>
 			<div style={title}>
 				<AppBar position="static">
 					<Tabs value={value} onChange={handleChange} aria-label="simple tabs example"
 					variant="fullWidth">
 						<Tab label="Intro" {...a11yProps(0)} />
-						<Tab label="Demo Page" {...a11yProps(1)} />
-						<Tab label="Test" {...a11yProps(2)} />
-						<Tab label="Log" {...a11yProps(3)} />
+						<Tab label="Test" {...a11yProps(1)} />
+						<Tab label="Log" {...a11yProps(2)} />
+						<Tab label="Demo Page" {...a11yProps(3)} />
 					</Tabs>
 				</AppBar>
 				<TabPanel value={value} index={0}>
@@ -217,11 +240,6 @@ const DetailRepo = () => {
 				</TabPanel>
 				<TabPanel value={value} index={1}>
 					<div style={panelStyle}>
-						Demo Page
-					</div>
-				</TabPanel>
-				<TabPanel value={value} index={2}>
-					<div style={panelStyle}>
 						<Typography style={typoStyle}align="center" variant="h6" gutterBottom>
 							API endpoints
 						</Typography>
@@ -233,9 +251,22 @@ const DetailRepo = () => {
 						</div>
 					</div>
 				</TabPanel>
+				<TabPanel value={value} index={2}>
+					<div style={{display:"flex", marginTop: "20px"}}>
+						<h3 style={{margin: "auto auto auto 0"}}>Log Page</h3>
+						<Button variant="contained" color="primary" onClick={getLog}>
+							refresh
+						</Button>
+					</div>
+					<div style={logStyle}>
+						{podLog.map((logLine) => (
+							<div key={logLine}>{logLine}</div>
+						))}
+					</div>
+				</TabPanel>
 				<TabPanel value={value} index={3}>
 					<div style={panelStyle}>
-						Log Page
+						Demo Page
 					</div>
 				</TabPanel>
 			</div>
